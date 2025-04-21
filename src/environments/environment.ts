@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  pruebaUrl: 'http://localhost:8080', 
+  baseUrl: 'http://localhost:4242/boss', 
 
   // Activa el modo depuración. Desactiva la autenticación.
   debug: 1

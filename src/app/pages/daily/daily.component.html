@@ -1,0 +1,69 @@
+<div class="container mt-4">
+    <h2>Boss diario</h2>
+    <div *ngIf="!solved">
+      <input
+        type="text"
+        [(ngModel)]="guess"
+        (input)="onSearch()"
+        (keydown.enter)="onGuess()"
+        placeholder="Adivina el boss..."
+        class="form-control"
+      />
+  
+      <ul *ngIf="filteredBosses.length > 0 && guess" class="list-group mt-2">
+        <li
+          *ngFor="let boss of filteredBosses"
+          class="list-group-item list-group-item-action"
+          (click)="selectSuggestion(boss)"
+        >
+          {{ boss }}
+        </li>
+      </ul>
+  
+      <button class="btn btn-primary mb-4" (click)="onGuess()">Adivinar</button>
+    </div>
+  
+    <table class="table table-bordered" *ngIf="attempts.length > 0">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Juego</th>
+            <th>Vida</th>
+            <th>Almas</th>
+            <th>Área</th>
+            <th>Altura</th>
+            <th>Dificultad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attempt of attempts" [ngClass]="{ 'table-success': attempt.name === boss.name }">
+            <td [ngClass]="isMatch('name', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
+              {{ attempt.name }}
+            </td>
+            <td [ngClass]="isMatch('game', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
+              {{ attempt.game }}
+            </td>
+            <td>
+              {{ attempt.health }}
+              <span [innerHTML]="compareHealth(attempt)"></span>
+            </td>
+            <td>
+              {{ attempt.souls }}
+              <span [innerHTML]="compareSouls(attempt)"></span>
+            </td>
+            <td [ngClass]="isMatch('area', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
+                {{ attempt.area }}
+            </td>
+            <td [ngClass]="isMatch('height', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
+                {{ attempt.height }}
+            </td>
+            <td [ngClass]="isMatch('difficulty', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
+              {{ attempt.difficulty }}
+            </td>
+          </tr>
+        </tbody>
+      </table>      
+  
+    <div *ngIf="solved" class="alert alert-success">¡Correcto! Has adivinado el boss del día 🎉</div>
+  </div>
+  
