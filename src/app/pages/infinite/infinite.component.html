@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <h2>Boss diario</h2>
+    <h2>Modo infinito</h2>
     <div *ngIf="!solved">
       <input
         type="text"
@@ -44,13 +44,13 @@
               {{ attempt.game }}
             </td>
             <td [ngClass]="{ 'bg-success text-white': attempt.health === boss.health }">
-                {{ attempt.health }}
-                <span [innerHTML]="compareHealth(attempt)"></span>
-            </td>              
-            <td [ngClass]="{ 'bg-success text-white': attempt.souls === boss.souls }">
-                {{ attempt.souls }}
-                <span [innerHTML]="compareSouls(attempt)"></span>
-            </td>
+              {{ attempt.health }}
+              <span [innerHTML]="compareHealth(attempt)"></span>
+          </td>              
+          <td [ngClass]="{ 'bg-success text-white': attempt.souls === boss.souls }">
+              {{ attempt.souls }}
+              <span [innerHTML]="compareSouls(attempt)"></span>
+          </td>
             <td [ngClass]="isMatch('area', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
                 {{ attempt.area }}
             </td>
@@ -64,6 +64,6 @@
         </tbody>
       </table>      
   
-    <div *ngIf="solved" class="alert alert-success">¡Correcto! Has adivinado el boss del día 🎉<br>Próximo boss en: <strong>{{ resetCountdown }}</strong></div>
+    <div *ngIf="solved" class="alert alert-success">¡Correcto! Has adivinado el boss del día 🎉</div>
   </div>
   

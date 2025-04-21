@@ -4,28 +4,26 @@ import { Boss } from 'src/app/interfaces/boss.interface';
 
 @Component({
   standalone: false,
-  selector: 'app-daily',
-  templateUrl: './daily.component.html',
+  selector: 'app-infinte',
+  templateUrl: './infinite.component.html',
 })
-export class DailyComponent implements OnInit {
+export class InfiniteComponent implements OnInit {
   boss!: Boss; 
   attempts: Boss[] = [];
   guess: string = '';
   solved: boolean = false; 
   bossList: Boss[] = []; 
   filteredBosses: string[] = []; 
-  resetCountdown: string = '';
-  private countdownInterval: any;
-
 
   constructor(private bossService: BossService) {}
 
   ngOnInit(): void {
-    this.bossService.getDailyBoss().subscribe(boss => this.boss = boss);
-
+    this.bossService.getRandomBoss().subscribe(boss => this.boss = boss);
+    
     this.bossService.getAllBosses().subscribe((bosses: Boss[]) => {
       this.bossList = bosses;
     });
+    
   }
 
   onSearch(): void {
@@ -51,9 +49,8 @@ export class DailyComponent implements OnInit {
 
     if (this.boss.name.toLowerCase() === this.guess.toLowerCase()) {
       this.solved = true; 
-      this.startCountdown();
     }
-
+    console.log(this.boss)
     this.guess = '';
     this.filteredBosses = [];
   }
@@ -82,28 +79,4 @@ export class DailyComponent implements OnInit {
     return attempt[field] === this.boss[field];
   }
   
-  startCountdown() {
-    const update = () => {
-      const now = new Date();
-  
-      // Hora de ahora en Madrid
-      const nowMadrid = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Madrid" }));
-  
-      const tomorrow = new Date(nowMadrid);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
-  
-      const diff = tomorrow.getTime() - nowMadrid.getTime();
-  
-      const hours = Math.floor(diff / 1000 / 60 / 60);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-  
-      this.resetCountdown = `${hours}h ${minutes}m ${seconds}s`;
-    };
-  
-    update();
-    this.countdownInterval = setInterval(update, 1000);
-  }  
-
 }

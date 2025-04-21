@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DailyComponent } from './pages/daily/daily.component';
 import { SharedModule } from './shared/shared.modules';
+import { InfiniteComponent } from './pages/infinite/infinite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DailyComponent
+    DailyComponent,
+    InfiniteComponent
   ],
   imports: [
     BrowserModule,
