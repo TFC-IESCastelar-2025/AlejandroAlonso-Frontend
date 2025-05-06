@@ -31,6 +31,7 @@
             <th>Vida</th>
             <th>Almas</th>
             <th>Área</th>
+            <th>Figuras</th>
             <th>Altura</th>
             <th>Dificultad</th>
           </tr>
@@ -54,6 +55,10 @@
             <td [ngClass]="isMatch('area', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
                 {{ attempt.area }}
             </td>
+            <td [ngClass]="getFiguresClass(attempt)">
+              {{ attempt.figures?.join(', ') }}
+            </td>
+                        
             <td [ngClass]="isMatch('height', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
                 {{ attempt.height }}
             </td>

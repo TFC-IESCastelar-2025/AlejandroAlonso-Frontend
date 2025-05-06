@@ -7,5 +7,6 @@ export interface Boss {
     difficulty: string;
     area:       string;
     height:     string;
+    figures:    string[];
 }
 

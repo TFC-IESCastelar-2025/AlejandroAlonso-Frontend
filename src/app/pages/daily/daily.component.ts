@@ -78,6 +78,22 @@ export class DailyComponent implements OnInit {
     return '';
   }
 
+  // Función para colores de figuras
+  getFiguresClass(attempt: Boss): string {
+    const correctFigures = this.boss.figures || [];
+    const attemptedFigures = attempt.figures || [];
+  
+    const matchedFigures = attemptedFigures.filter(f => correctFigures.includes(f));
+  
+    if (matchedFigures.length === 0) {
+      return 'bg-danger text-white';
+    } else if (matchedFigures.length === correctFigures.length && attemptedFigures.length === correctFigures.length) {
+      return 'bg-success text-white';
+    } else {
+      return 'bg-warning text-dark';
+    }
+  }  
+
   isMatch(field: keyof Boss, attempt: Boss): boolean {
     return attempt[field] === this.boss[field];
   }
