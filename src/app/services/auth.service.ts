@@ -1,33 +1,47 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+const AUTH_API = 'http://localhost:4242/auth/';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5050/auth/login'; // Hay q cambiarlo de lugar a enviroments
-
   constructor(private http: HttpClient) {}
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post<{ token: string }>(this.apiUrl, credentials).pipe(
-      tap(response => {
-        localStorage.setItem('token', response.token);
-      })
-    );
+  private loggedIn = new BehaviorSubject<boolean>(this.getToken() != null);
+  authStatus = this.loggedIn.asObservable();
+
+  login(credentials: { username: string; password: string }): Observable<any> {
+    return this.http.post(AUTH_API + 'login', credentials);
   }
 
-  logout() {
-    localStorage.removeItem('token');
-  }
+  setLoggedIn(state: boolean): void {
+    this.loggedIn.next(state);
+  }  
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+  saveToken(token: string): void {
+    localStorage.setItem('auth-token', token);
+    this.loggedIn.next(true);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('auth-token');
+  }
+
+  saveUser(user: any): void {
+    localStorage.setItem('auth-user', JSON.stringify(user));
+  }
+
+  getUser(): any {
+    const user = localStorage.getItem('auth-user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.loggedIn.next(false);
   }
 }

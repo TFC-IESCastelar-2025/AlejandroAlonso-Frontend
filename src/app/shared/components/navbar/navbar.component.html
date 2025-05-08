@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Soulsdle</a>
-    
+
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
@@ -11,9 +11,23 @@
           <a class="nav-link" routerLink="/infinite">Infinito</a>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto">
+
+      <!-- Si NO está logueado -->
+      <ul class="navbar-nav ms-auto" *ngIf="!isLoggedIn">
         <li class="nav-item">
           <a class="nav-link btn btn-outline-light" routerLink="/login">Iniciar sesión</a>
+        </li>
+      </ul>
+
+      <!-- Si está logueado -->
+      <ul class="navbar-nav ms-auto" *ngIf="isLoggedIn">
+        <li class="nav-item">
+          <span class="navbar-text text-light me-2">
+            Bienvenido, {{ username }}
+          </span>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-light" (click)="logout()">Cerrar sesión</button>
         </li>
       </ul>
     </div>
