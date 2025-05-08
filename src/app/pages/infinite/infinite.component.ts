@@ -78,5 +78,15 @@ export class InfiniteComponent implements OnInit {
   isMatch(field: keyof Boss, attempt: Boss): boolean {
     return attempt[field] === this.boss[field];
   }
+
+  reiniciar(): void {
+    this.attempts = [];
+    this.guess = '';
+    this.solved = false;
+    this.filteredBosses = [];
+  
+    // Obtener un nuevo boss aleatorio
+    this.bossService.getRandomBoss().subscribe(boss => this.boss = boss);
+  }  
   
 }

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import jwt_decode from 'jwt-decode';
+
 const AUTH_API = 'http://localhost:4242/auth/';
 
 @Injectable({
@@ -10,6 +12,13 @@ const AUTH_API = 'http://localhost:4242/auth/';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
+
+  private sessionExpiredMessage = new BehaviorSubject<string>('');
+  sessionExpired$ = this.sessionExpiredMessage.asObservable();
+
+  notifySessionExpired() {
+    this.sessionExpiredMessage.next('Sesión expirada. Por favor, inicia sesión nuevamente.');
+  }
 
   private loggedIn = new BehaviorSubject<boolean>(this.getToken() != null);
   authStatus = this.loggedIn.asObservable();
@@ -43,5 +52,18 @@ export class AuthService {
   logout(): void {
     localStorage.clear();
     this.loggedIn.next(false);
+  }
+
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) return true;
+
+    try {
+      const decoded: any = jwt_decode(token);
+      const now = Math.floor(Date.now() / 1000);
+      return decoded.exp < now;
+    } catch (e) {
+      return true; // token inválido
+    }
   }
 }

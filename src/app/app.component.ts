@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { NavigationStart, Router } from '@angular/router';
 // import { JsonService } from './json.service';
 
 @Component({
@@ -7,41 +9,44 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Souldle';
-  // title = 'FCT_retos';
-  // jsonData: any[] = [];
+  showSessionModal = false;
 
-  // // Formulario Reactivo
-  // form = new FormGroup({
-  //   prueba: new FormControl('', [Validators.required, Validators.minLength(1)])
-  // });
+  showModal = false;
+  modalConfig = {
+    title: 'Sesión expirada',
+    message: 'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.',
+    buttonText: 'Ir al login'
+  };
 
-  // constructor(private jsonService: JsonService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  // ngOnInit(): void {
-  //   this.cargarDatos();
-  // }
+  ngOnInit(): void {
+    this.checkToken();
 
-  // cargarDatos(): void {
-  //   this.jsonService.obtenerJson().subscribe(data => {
-  //     this.jsonData = data;
-  //     console.log(this.jsonData);
-  //   });
-  // }
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.checkToken();
+      }
+    });
 
-  // crearDatos(): void {
-  //   if (this.form.invalid) {
-  //     alert('El campo no puede estar vacío');
-  //     return;
-  //   }
+    this.authService.sessionExpired$.subscribe(() => {
+      this.showSessionModal = true;
+    });
+  }
 
-  //   const nuevoDato = { prueba: this.form.value.prueba };
+  private checkToken(): void {
+    const token = this.authService.getToken();
+    if (token && this.authService.isTokenExpired()) {
+      this.authService.logout();
+      this.authService.notifySessionExpired();
+      this.router.navigate(['/login']);
+    }
+  }
 
-  //   this.jsonService.crearJson(nuevoDato).subscribe(response => {
-  //     console.log('Dato creado:', response);
-  //     this.form.reset(); // Limpiar el formulario
-  //     this.cargarDatos(); // Recargar los datos
-  //   });
-  // }
+  onSessionModalClose(): void {
+    this.showModal = false;
+    this.router.navigate(['/login']);
+  }
 }

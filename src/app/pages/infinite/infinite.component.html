@@ -64,6 +64,13 @@
         </tbody>
       </table>      
   
-    <div *ngIf="solved" class="alert alert-success">¡Correcto! Has adivinado el boss del día 🎉</div>
+      <div *ngIf="solved" class="alert alert-success">
+        ¡Correcto! Has adivinado el boss 🎉
+      </div>
+      
+      <div *ngIf="solved" class="mt-3 d-flex justify-content-center">
+        <button class="btn btn-success" (click)="reiniciar()">Restart</button>
+      </div>      
+      
   </div>
   

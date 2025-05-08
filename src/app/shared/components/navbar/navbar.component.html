@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Soulsdle</a>
+  <div class="container-fluid d-flex justify-content-between">
+    <a class="navbar-brand" href="/">Soulsdle</a>
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
@@ -11,15 +11,19 @@
           <a class="nav-link" routerLink="/infinite">Infinito</a>
         </li>
       </ul>
-
-      <!-- Si NO está logueado -->
-      <ul class="navbar-nav ms-auto" *ngIf="!isLoggedIn">
+    </div>
+      
+      <!-- Parte de login cuando no está logueado -->
+      <ul class="navbar-nav ms-auto d-flex" *ngIf="!isLoggedIn">
         <li class="nav-item">
-          <a class="nav-link btn btn-outline-light" routerLink="/login">Iniciar sesión</a>
+          <a class="nav-link btn btn-outline-light" routerLink="/login" style="margin-right: 10px;">Iniciar sesión</a>
         </li>
-      </ul>
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-primary" routerLink="/register">Registrarse</a>
+        </li>
+      </ul>      
 
-      <!-- Si está logueado -->
+      <!-- Parte de login cuando está logueado -->
       <ul class="navbar-nav ms-auto" *ngIf="isLoggedIn">
         <li class="nav-item">
           <span class="navbar-text text-light me-2">
@@ -30,6 +34,5 @@
           <button class="btn btn-outline-light" (click)="logout()">Cerrar sesión</button>
         </li>
       </ul>
-    </div>
   </div>
 </nav>

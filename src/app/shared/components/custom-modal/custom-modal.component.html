@@ -1,0 +1,17 @@
+<div class="modal-backdrop fade show" style="z-index: 1050;"></div>
+
+<div class="modal fade show d-block animated-modal" style="z-index: 1055;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-primary">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">{{ title }}</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ message }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-light" (click)="onClose()">{{ buttonText }}</button>
+      </div>
+    </div>
+  </div>
+</div>

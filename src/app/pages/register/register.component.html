@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <h2>Registro</h2>
+    <form (ngSubmit)="onRegister()" [formGroup]="registerForm" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Usuario</label>
+        <input type="text" id="username" formControlName="username" class="form-control" required />
+      </div>
+  
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo</label>
+        <input type="email" id="email" formControlName="email" class="form-control" required />
+      </div>
+  
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" id="password" formControlName="password" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" required />
+        <div *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched" class="text-danger">
+          Las contraseñas no coinciden.
+        </div>
+      </div>      
+  
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || showModal">
+        Registrarse
+      </button>
+
+    </form>
+  </div>
+  
+  <app-custom-modal
+    *ngIf="showModal"
+    [title]="modalConfig.title"
+    [message]="modalConfig.message"
+    [buttonText]="modalConfig.buttonText"
+    (close)="onModalClose()"
+  ></app-custom-modal>
+  

@@ -10,13 +10,17 @@ import { SharedModule } from './shared/shared.modules';
 import { InfiniteComponent } from './pages/infinite/infinite.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CustomModalComponent } from './shared/components/custom-modal/custom-modal.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DailyComponent,
     InfiniteComponent,
-    LoginComponent
+    LoginComponent,
+    CustomModalComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,15 @@
 <div class="d-flex flex-column min-vh-100">
   <app-navbar></app-navbar>
-
+  
   <main class="flex-grow-1 d-flex justify-content-center align-items-center">
+    <!-- Modal de sesión expirada -->
+    <app-custom-modal
+    *ngIf="showModal"
+    [title]="modalConfig.title"
+    [message]="modalConfig.message"
+    [buttonText]="modalConfig.buttonText"
+    (close)="onSessionModalClose()"
+  ></app-custom-modal>
     <div class="contenido-principal">
       <router-outlet></router-outlet>
     </div>
