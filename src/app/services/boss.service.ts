@@ -24,4 +24,8 @@ export class BossService {
   getAllBosses(): Observable<Boss[]> {
     return this.http.get<Boss[]>(`${baseUrl}/ver`);
   }
+
+  getRandomBossMusicForToday(): Observable<any> {
+    return this.http.get<any>(`${baseUrl}/randomtoday/music`);
+  }
 }

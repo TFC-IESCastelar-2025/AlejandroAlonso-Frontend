@@ -28,35 +28,44 @@ export class DailyComponent implements OnInit {
     });
   }
 
-  onSearch(): void {
-    const query = this.guess.toLowerCase();
-    this.filteredBosses = this.bossList
-    .filter(boss => boss.name.toLowerCase().startsWith(query));
-  }
+  // onSearch(): void {
+  //   const query = this.guess.toLowerCase();
+  //   this.filteredBosses = this.bossList
+  //   .filter(boss => boss.name.toLowerCase().startsWith(query));
+  // }
 
-  selectSuggestion(boss: string): void {
-    this.guess = boss;
-    this.filteredBosses = [];
-    this.onGuess();
-  }
+  // selectSuggestion(boss: string): void {
+  //   this.guess = boss;
+  //   this.filteredBosses = [];
+  //   // this.onGuess();
+  // }
 
-  onGuess(): void {
-    const match = this.bossList.find(
-      b => b.name.toLowerCase() === this.guess.toLowerCase()
-    );
+  onBossSelected(boss: Boss): void{
+    this.attempts.push(boss);
 
-    if (!match) return;
-
-    this.attempts.push(match);
-
-    if (this.boss.name.toLowerCase() === this.guess.toLowerCase()) {
-      this.solved = true; 
+    if(this.boss.name.toLowerCase() === boss.name.toLowerCase()){
+      this.solved = true;
       this.startCountdown();
     }
-
-    this.guess = '';
-    this.filteredBosses = [];
   }
+
+  // onGuess(): void {
+  //   const match = this.bossList.find(
+  //     b => b.name.toLowerCase() === this.guess.toLowerCase()
+  //   );
+
+  //   if (!match) return;
+
+  //   this.attempts.push(match);
+
+  //   if (this.boss.name.toLowerCase() === this.guess.toLowerCase()) {
+  //     this.solved = true; 
+  //     this.startCountdown();
+  //   }
+
+  //   this.guess = '';
+  //   this.filteredBosses = [];
+  // }
 
   // Función para comparar vida
   compareHealth(boss: Boss): string {

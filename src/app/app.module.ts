@@ -12,6 +12,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CustomModalComponent } from './shared/components/custom-modal/custom-modal.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { MusicGuessComponent } from './pages/music-guess/music-guess.component';
+import { BossSearchComponent } from './components/boss-search/boss-search.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { RegisterComponent } from './pages/register/register.component';
     InfiniteComponent,
     LoginComponent,
     CustomModalComponent,
-    RegisterComponent
+    RegisterComponent,
+    MusicGuessComponent,
+    BossSearchComponent
   ],
   imports: [
     BrowserModule,

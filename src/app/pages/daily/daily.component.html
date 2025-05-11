@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <h2>Boss diario</h2>
-    <div *ngIf="!solved">
+    <!-- <div *ngIf="!solved">
       <input
         type="text"
         [(ngModel)]="guess"
@@ -28,7 +28,8 @@
           <span>{{ boss.name }}</span>
         </li>
       </ul>        
-    </div>
+    </div> -->
+    <app-boss-search *ngIf="!solved" (selectedBoss)="onBossSelected($event)"></app-boss-search>
   
     <table class="table table-bordered" *ngIf="attempts.length > 0">
         <thead>
