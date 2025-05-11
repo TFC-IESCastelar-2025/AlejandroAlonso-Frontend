@@ -14,6 +14,7 @@ import { CustomModalComponent } from './shared/components/custom-modal/custom-mo
 import { RegisterComponent } from './pages/register/register.component';
 import { MusicGuessComponent } from './pages/music-guess/music-guess.component';
 import { BossSearchComponent } from './components/boss-search/boss-search.component';
+import { MusicGuessInfiniteComponent } from './pages/music-guess-infinite/music-guess-infinite.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { BossSearchComponent } from './components/boss-search/boss-search.compon
     CustomModalComponent,
     RegisterComponent,
     MusicGuessComponent,
+    MusicGuessInfiniteComponent,
     BossSearchComponent
   ],
   imports: [

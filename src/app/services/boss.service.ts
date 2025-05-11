@@ -28,4 +28,8 @@ export class BossService {
   getRandomBossMusicForToday(): Observable<any> {
     return this.http.get<any>(`${baseUrl}/randomtoday/music`);
   }
+
+  getRandomBossMusic(): Observable<any> {
+    return this.http.get<any>(`${baseUrl}/random/music`);
+  }
 }

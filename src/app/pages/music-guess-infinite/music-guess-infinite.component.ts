@@ -1,13 +1,13 @@
-// src/app/pages/music-guess/music-guess.component.ts
-import { Component, OnInit } from '@angular/core';
+// src/app/pages/music-guess/music-guess-infinite.component.ts
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Boss } from 'src/app/interfaces/boss.interface';
 import { BossService } from 'src/app/services/boss.service';
 
 @Component({
-  selector: 'app-music-guess',
-  templateUrl: './music-guess.component.html'
+  selector: 'app-music-guess-infinite',
+  templateUrl: './music-guess-infinite.component.html'
 })
-export class MusicGuessComponent implements OnInit {
+export class MusicGuessInfiniteComponent implements OnInit {
   musicUrl: string = '';
   boss!: Boss;
   bossName: string = '';
@@ -20,18 +20,20 @@ export class MusicGuessComponent implements OnInit {
   resetCountdown: string = '';
   private countdownInterval: any;
 
+  @ViewChild('audioElement') audioElement!: ElementRef<HTMLAudioElement>;
+
   constructor(private bossService: BossService) {}
 
   ngOnInit(): void {
-    this.getMusicForToday();
+    this.getRandomMusic();
 
     this.bossService.getAllBosses().subscribe((bosses: Boss[]) => {
         this.bossList = bosses;
     });
   }
 
-  getMusicForToday(): void {
-    this.bossService.getRandomBossMusicForToday().subscribe(response => {
+  getRandomMusic(): void {
+    this.bossService.getRandomBossMusic().subscribe(response => {
       this.musicUrl = response.music;
       this.bossName = response.name;
       this.boss = response;
@@ -44,13 +46,22 @@ export class MusicGuessComponent implements OnInit {
   
     if (this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
       this.solved = true;
-      this.startCountdown();
     }
   
     const isCorrect = this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase();
     this.chosenBosses.push({ boss: boss, correct: isCorrect });
   }
-  
+
+  reiniciar(): void {
+    this.solved = false;
+    this.attempts = [];
+    this.chosenBosses = [];
+    this.getRandomMusic();
+    if (this.audioElement && this.audioElement.nativeElement) {
+      this.audioElement.nativeElement.currentTime = 0; 
+      this.audioElement.nativeElement.pause();
+    }
+  }
 
 //   onSearch(): void {
 //     const query = this.guess.toLowerCase();
@@ -77,28 +88,4 @@ export class MusicGuessComponent implements OnInit {
 //     }
 //     this.guess = '';  // Limpiar el campo de entrada
 //   }
-
-  startCountdown() {
-    const update = () => {
-      const now = new Date();
-  
-      // Hora de ahora en Madrid
-      const nowMadrid = new Date(now.toLocaleString("es-ES", { timeZone: "Europe/Madrid" }));
-  
-      const tomorrow = new Date(nowMadrid);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
-  
-      const diff = tomorrow.getTime() - nowMadrid.getTime();
-  
-      const hours = Math.floor(diff / 1000 / 60 / 60);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-  
-      this.resetCountdown = `${hours}h ${minutes}m ${seconds}s`;
-    };
-  
-    update();
-    this.countdownInterval = setInterval(update, 1000);
-  }  
 }

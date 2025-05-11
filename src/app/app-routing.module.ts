@@ -5,7 +5,7 @@ import { InfiniteComponent } from './pages/infinite/infinite.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { MusicGuessComponent } from './pages/music-guess/music-guess.component';
-// import { InfiniteComponent } from './pages/infinite/infinite.component';
+import { MusicGuessInfiniteComponent } from './pages/music-guess-infinite/music-guess-infinite.component';
 // import { NotFoundComponent } from './pages/not-found/not-found.component'; 
 
 const routes: Routes = [
@@ -14,6 +14,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'music-guess', component: MusicGuessComponent },
+    { path: 'music-guess-infinite', component: MusicGuessInfiniteComponent },
     { path: '', redirectTo: 'daily', pathMatch: 'full' }, // <- redirige a /daily por defecto
     { path: '**', redirectTo: 'daily' } // <- redirige a /daily por defecto
 //   { path: '**', component: NotFoundComponent }
