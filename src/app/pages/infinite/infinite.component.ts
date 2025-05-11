@@ -13,7 +13,7 @@ export class InfiniteComponent implements OnInit {
   guess: string = '';
   solved: boolean = false; 
   bossList: Boss[] = []; 
-  filteredBosses: string[] = []; 
+  filteredBosses: Boss[] = [];
 
   constructor(private bossService: BossService) {}
 
@@ -29,13 +29,13 @@ export class InfiniteComponent implements OnInit {
   onSearch(): void {
     const query = this.guess.toLowerCase();
     this.filteredBosses = this.bossList
-    .filter(boss => boss.name.toLowerCase().startsWith(query)) 
-    .map(boss => boss.name);
+    .filter(boss => boss.name.toLowerCase().startsWith(query));
   }
 
   selectSuggestion(boss: string): void {
     this.guess = boss;
     this.filteredBosses = [];
+    this.onGuess();
   }
 
   onGuess(): void {
@@ -74,6 +74,22 @@ export class InfiniteComponent implements OnInit {
     }
     return '';
   }
+
+  // Función para colores de figuras
+  getFiguresClass(attempt: Boss): string {
+    const correctFigures = this.boss.figures || [];
+    const attemptedFigures = attempt.figures || [];
+  
+    const matchedFigures = attemptedFigures.filter(f => correctFigures.includes(f));
+  
+    if (matchedFigures.length === 0) {
+      return 'bg-danger text-white';
+    } else if (matchedFigures.length === correctFigures.length && attemptedFigures.length === correctFigures.length) {
+      return 'bg-success text-white';
+    } else {
+      return 'bg-warning text-dark';
+    }
+  }  
 
   isMatch(field: keyof Boss, attempt: Boss): boolean {
     return attempt[field] === this.boss[field];

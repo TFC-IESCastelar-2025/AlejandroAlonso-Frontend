@@ -13,7 +13,7 @@ export class DailyComponent implements OnInit {
   guess: string = '';
   solved: boolean = false; 
   bossList: Boss[] = []; 
-  filteredBosses: string[] = []; 
+  filteredBosses: Boss[] = [];
   resetCountdown: string = '';
   private countdownInterval: any;
 
@@ -31,13 +31,13 @@ export class DailyComponent implements OnInit {
   onSearch(): void {
     const query = this.guess.toLowerCase();
     this.filteredBosses = this.bossList
-    .filter(boss => boss.name.toLowerCase().startsWith(query)) 
-    .map(boss => boss.name);
+    .filter(boss => boss.name.toLowerCase().startsWith(query));
   }
 
   selectSuggestion(boss: string): void {
     this.guess = boss;
     this.filteredBosses = [];
+    this.onGuess();
   }
 
   onGuess(): void {
