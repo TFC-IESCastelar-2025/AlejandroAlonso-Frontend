@@ -1,5 +1,6 @@
 export interface Boss {
     id:         number;
+    image:      string;
     game:       string;
     name:       string;
     health:     number;

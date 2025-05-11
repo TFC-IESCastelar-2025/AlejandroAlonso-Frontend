@@ -26,6 +26,7 @@
     <table class="table table-bordered" *ngIf="attempts.length > 0">
         <thead>
           <tr>
+            <th>Foto</th>
             <th>Nombre</th>
             <th>Juego</th>
             <th>Vida</th>
@@ -37,7 +38,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let attempt of attempts" [ngClass]="{ 'table-success': attempt.name === boss.name }">
+          <tr *ngFor="let attempt of attempts" [ngClass]="{ 'table-success': attempt.image === boss.image }">
+            <td
+              [ngClass]="isMatch('image', attempt) ? 'bg-success text-white' : 'bg-danger text-white'"
+              style="width: 80px; height: 80px; padding: 0;"
+            >
+              <img
+                *ngIf="attempt.image"
+                [src]="attempt.image"
+                alt="Imagen"
+                style="width: 100%; height: 100%; object-fit: cover; display: block;"
+              />
+            </td>
             <td [ngClass]="isMatch('name', attempt) ? 'bg-success text-white' : 'bg-danger text-white'">
               {{ attempt.name }}
             </td>
