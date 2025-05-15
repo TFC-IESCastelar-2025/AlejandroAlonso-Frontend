@@ -83,7 +83,7 @@ export class MusicGuessComponent implements OnInit {
       const now = new Date();
   
       // Hora de ahora en Madrid
-      const nowMadrid = new Date(now.toLocaleString("es-ES", { timeZone: "Europe/Madrid" }));
+      const nowMadrid = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Madrid" }));
   
       const tomorrow = new Date(nowMadrid);
       tomorrow.setDate(tomorrow.getDate() + 1);

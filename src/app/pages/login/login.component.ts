@@ -19,8 +19,14 @@ export class LoginComponent {
   onSubmit(): void {
     this.authService.login(this.form).subscribe({
       next: (data) => {
-        this.authService.saveToken(data.token);
-        this.authService.saveUser(data);
+       this.authService.saveToken(data.token);
+        this.authService.saveUser({
+          id: data.id,
+          username: data.username,
+          email: data.email,
+          roles: data.roles
+        });
+        console.log('Usuario logeado:', this.authService.getUser());
   
         this.authService.setLoggedIn(true);
   

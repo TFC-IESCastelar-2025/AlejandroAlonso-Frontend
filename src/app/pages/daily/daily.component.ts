@@ -46,6 +46,10 @@ export class DailyComponent implements OnInit {
     if(this.boss.name.toLowerCase() === boss.name.toLowerCase()){
       this.solved = true;
       this.startCountdown();
+      this.bossService.acertarBoss(boss.id).subscribe({
+      next: () => console.log('Boss saved to user history.'),
+      error: err => console.error('Error saving boss guess', err)
+    });
     }
   }
 
@@ -112,7 +116,7 @@ export class DailyComponent implements OnInit {
       const now = new Date();
   
       // Hora de ahora en Madrid
-      const nowMadrid = new Date(now.toLocaleString("es-ES", { timeZone: "Europe/Madrid" }));
+      const nowMadrid = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Andorra" }));
   
       const tomorrow = new Date(nowMadrid);
       tomorrow.setDate(tomorrow.getDate() + 1);

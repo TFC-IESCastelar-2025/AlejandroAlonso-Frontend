@@ -32,4 +32,10 @@ export class BossService {
   getRandomBossMusic(): Observable<any> {
     return this.http.get<any>(`${baseUrl}/random/music`);
   }
+
+  acertarBoss(bossId: number) {
+    return this.http.post(`${baseUrl}/saveboss`, null,{
+      params: { bossId }
+    });
+  }
 }
