@@ -20,8 +20,6 @@ export class MusicGuessInfiniteComponent implements OnInit {
   resetCountdown: string = '';
   private countdownInterval: any;
 
-  @ViewChild('audioElement') audioElement!: ElementRef<HTMLAudioElement>;
-
   constructor(private bossService: BossService) {}
 
   ngOnInit(): void {
@@ -57,10 +55,6 @@ export class MusicGuessInfiniteComponent implements OnInit {
     this.attempts = [];
     this.chosenBosses = [];
     this.getRandomMusic();
-    if (this.audioElement && this.audioElement.nativeElement) {
-      this.audioElement.nativeElement.currentTime = 0; 
-      this.audioElement.nativeElement.pause();
-    }
   }
 
 //   onSearch(): void {

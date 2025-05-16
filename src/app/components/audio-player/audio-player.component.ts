@@ -9,12 +9,13 @@ export class AudioPlayerComponent implements AfterViewInit {
   @ViewChild('myaudio') audioRef!: ElementRef<HTMLAudioElement>;
 
   ngAfterViewInit(): void {
-    // Esperamos un poco más para asegurarnos de que el elemento esté listo
     setTimeout(() => {
       const audio = this.audioRef.nativeElement;
+      this.audioRef.nativeElement.currentTime = 0; 
+      this.audioRef.nativeElement.pause();
       if (audio) {
-        audio.volume = 0.15; // 15%
+        audio.volume = 0.15; 
       }
-    }, 100); // incluso puedes probar con 200ms si sigue sin funcionar
+    }, 100); 
   }
 }

@@ -2,7 +2,7 @@
 <div class="container mt-4">
     <h2>Adivina la música del boss</h2>
     
-    <audio #audioElement controls [src]="musicUrl" *ngIf="musicUrl"></audio>
+    <app-audio-player *ngIf="musicUrl" [src]="musicUrl"></app-audio-player>
     <!-- <div *ngIf="!solved">
   
       <input
