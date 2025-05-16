@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <h2>Bestiario</h2>
+  <div class="row">
+    <!-- Lista de bosses -->
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-4 mb-4" *ngFor="let boss of allBosses">
+          <div class="card text-center boss-card" (click)="onSelectBoss(boss)" [class.disabled]="!hasBoss(boss.id)">
+            <img
+              [src]="hasBoss(boss.id) ? boss.image : 'assets/unknown.webp'"
+              class="card-img-top"
+              [alt]="hasBoss(boss.id) ? boss.name : 'Boss desconocido'"
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ hasBoss(boss.id) ? boss.name : '?????' }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detalle del boss -->
+    <div class="col-md-4" *ngIf="selectedBoss">
+      <div class="card">
+        <img [src]="selectedBoss.image" class="card-img-top" [alt]="selectedBoss.name" />
+        <div class="card-body">
+          <h4>{{ selectedBoss.name }}</h4>
+          <p><strong>Juego:</strong> {{ selectedBoss.game }}</p>
+          <p><strong>Área:</strong> {{ selectedBoss.area }}</p>
+          <p><strong>Dificultad:</strong> {{ selectedBoss.difficulty }}</p>
+          <p><strong>Vida:</strong> {{ selectedBoss.health }}</p>
+          <p><strong>Almas:</strong> {{ selectedBoss.souls }}</p>
+          <p><strong>Altura:</strong> {{ selectedBoss.height }}</p>
+          <p><strong>Figuras:</strong> {{ selectedBoss.figures.join(', ') }}</p>
+
+          <app-audio-player *ngIf="selectedBoss" [src]="selectedBoss.music"></app-audio-player>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

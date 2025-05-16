@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import jwt_decode from 'jwt-decode';
+import { Boss } from '../interfaces/boss.interface';
 
 const AUTH_API = 'http://localhost:4242/auth/';
 const PROFILE_URL = 'http://localhost:4242/profile'
@@ -12,7 +13,8 @@ export interface UserProfile {
   id: number,
   username: string,
   email: string,
-  password: string
+  password: string,
+  bosses: Boss[]
 }
 
 @Injectable({

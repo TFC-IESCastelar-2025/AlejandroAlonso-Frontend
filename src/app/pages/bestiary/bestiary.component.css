@@ -1,0 +1,12 @@
+.boss-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.boss-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.boss-card:hover {
+  transform: scale(1.03);
+}

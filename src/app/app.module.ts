@@ -16,6 +16,8 @@ import { MusicGuessComponent } from './pages/music-guess/music-guess.component';
 import { BossSearchComponent } from './components/boss-search/boss-search.component';
 import { MusicGuessInfiniteComponent } from './pages/music-guess-infinite/music-guess-infinite.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { BestiaryComponent } from './pages/bestiary/bestiary.component';
+import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
     MusicGuessComponent,
     MusicGuessInfiniteComponent,
     BossSearchComponent,
-    ProfileComponent
+    ProfileComponent,
+    BestiaryComponent,
+    AudioPlayerComponent
   ],
   imports: [
     BrowserModule,
