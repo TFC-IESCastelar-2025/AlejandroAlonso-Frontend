@@ -6,6 +6,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 const AUTH_API = 'http://localhost:4242/auth/';
+const PROFILE_URL = 'http://localhost:4242/profile'
+
+export interface UserProfile {
+  id: number,
+  username: string,
+  email: string,
+  password: string
+}
 
 @Injectable({
   providedIn: 'root',
@@ -65,5 +73,13 @@ export class AuthService {
     } catch (e) {
       return true; // token inválido
     }
+  }
+
+  getProfile(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(PROFILE_URL)
+  }
+
+  putProfile(data: Partial<UserProfile>): Observable<UserProfile> {
+    return this.http.put<UserProfile>(PROFILE_URL, data)
   }
 }

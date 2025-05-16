@@ -15,6 +15,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { MusicGuessComponent } from './pages/music-guess/music-guess.component';
 import { BossSearchComponent } from './components/boss-search/boss-search.component';
 import { MusicGuessInfiniteComponent } from './pages/music-guess-infinite/music-guess-infinite.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MusicGuessInfiniteComponent } from './pages/music-guess-infinite/music-
     RegisterComponent,
     MusicGuessComponent,
     MusicGuessInfiniteComponent,
-    BossSearchComponent
+    BossSearchComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
