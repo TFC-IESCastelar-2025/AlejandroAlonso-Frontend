@@ -1,0 +1,14 @@
+<div class="container mt-5">
+  <div class="card p-4 shadow" [ngClass]="{'border-success': isSuccess, 'border-danger': !isSuccess}">
+    <div class="card-body text-center">
+      <h4 [ngClass]="{'text-success': isSuccess, 'text-danger': !isSuccess}">
+        {{ isSuccess ? '✅ Verificación Exitosa' : '❌ Verificación Fallida' }}
+      </h4>
+      <p class="mt-3">{{ message }}</p>
+
+      <button *ngIf="isSuccess" class="btn btn-primary mt-3" (click)="goToLogin()">
+        Ir al login
+      </button>
+    </div>
+  </div>
+</div>
