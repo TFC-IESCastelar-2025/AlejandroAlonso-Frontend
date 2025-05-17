@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  isLoading = false;
 
   showModal = false;
   modalConfig = {
@@ -37,6 +38,7 @@ export class RegisterComponent {
       this.registerForm.markAllAsTouched(); 
       return;
     }
+    this.isLoading = true;
     const data = {
       username: this.registerForm.value.username,
       email: this.registerForm.value.email,
@@ -52,6 +54,7 @@ export class RegisterComponent {
           buttonText: 'Ir a login'
         };
         this.showModal = true;
+        this.isLoading = false;
         console.log('Modal abierto');
       },
       error: (err) => {
@@ -62,6 +65,7 @@ export class RegisterComponent {
           buttonText: 'Cerrar'
         };
         this.showModal = true;
+        this.isLoading = false;
         console.log('Modal abierto');
       }
     });

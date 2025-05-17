@@ -39,9 +39,12 @@
         </div>
       </div>      
   
-      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || showModal">
-        Registrarse
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || showModal || isLoading">
+        <span *ngIf="!isLoading">Registrarse</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span *ngIf="isLoading"> Cargando...</span>
       </button>
+
 
     </form>
   </div>
