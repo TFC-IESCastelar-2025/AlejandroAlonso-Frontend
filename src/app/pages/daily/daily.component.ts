@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BossService } from 'src/app/services/boss.service';
 import { Boss } from 'src/app/interfaces/boss.interface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   standalone: false,
@@ -18,7 +19,7 @@ export class DailyComponent implements OnInit {
   private countdownInterval: any;
 
 
-  constructor(private bossService: BossService) {}
+  constructor(private bossService: BossService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.bossService.getDailyBoss().subscribe(boss => this.boss = boss);
@@ -40,16 +41,21 @@ export class DailyComponent implements OnInit {
   //   // this.onGuess();
   // }
 
-  onBossSelected(boss: Boss): void{
+  onBossSelected(boss: Boss): void {
     this.attempts.push(boss);
 
-    if(this.boss.name.toLowerCase() === boss.name.toLowerCase()){
+    if (this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
       this.solved = true;
       this.startCountdown();
-      this.bossService.acertarBoss(boss.id).subscribe({
-      next: () => console.log('Boss saved to user history.'),
-      error: err => console.error('Error saving boss guess', err)
-    });
+
+      const token = this.authService.getToken();
+
+      if (token && !this.authService.isTokenExpired()) {
+        this.bossService.acertarBoss(boss.id).subscribe({
+          next: () => console.log('Boss saved to user history.'),
+          error: err => console.error('Error saving boss guess', err),
+        });
+      }
     }
   }
 

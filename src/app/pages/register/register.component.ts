@@ -21,7 +21,7 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/)]],
       confirmPassword: ['', [Validators.required]]
     }, { validator: this.passwordMatchValidator });
   }
@@ -33,6 +33,10 @@ export class RegisterComponent {
   }
 
   onRegister(): void {
+      if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched(); 
+      return;
+    }
     const data = {
       username: this.registerForm.value.username,
       email: this.registerForm.value.email,
