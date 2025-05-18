@@ -9,6 +9,7 @@ import { MusicGuessInfiniteComponent } from './pages/music-guess-infinite/music-
 import { ProfileComponent } from './pages/profile/profile.component';
 import { BestiaryComponent } from './pages/bestiary/bestiary.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { RankingComponent } from './pages/ranking/ranking.component';
 // import { NotFoundComponent } from './pages/not-found/not-found.component'; 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'verify', component: VerifyEmailComponent },
     { path: 'music-guess', component: MusicGuessComponent },
     { path: 'music-guess-infinite', component: MusicGuessInfiniteComponent },
+    { path: 'ranking', component: RankingComponent },
     { path: 'bestiary', component: BestiaryComponent },
     { path: '', redirectTo: 'daily', pathMatch: 'full' }, // <- redirige a /daily por defecto
     { path: '**', redirectTo: 'daily' } // <- redirige a /daily por defecto

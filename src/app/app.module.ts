@@ -19,6 +19,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { BestiaryComponent } from './pages/bestiary/bestiary.component';
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { RankingComponent } from './pages/ranking/ranking.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginatorComponent } from './shared/components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     ProfileComponent,
     BestiaryComponent,
     AudioPlayerComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    RankingComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
