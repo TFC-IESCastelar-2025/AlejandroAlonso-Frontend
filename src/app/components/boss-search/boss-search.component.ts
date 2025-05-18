@@ -18,8 +18,6 @@ export class BossSearchComponent {
   constructor(private bossService: BossService) {}
 
   ngOnInit(): void {
-    this.bossService.getDailyBoss().subscribe(boss => this.boss = boss);
-
     this.bossService.getAllBosses().subscribe((bosses: Boss[]) => {
       this.bossList = bosses;
     });

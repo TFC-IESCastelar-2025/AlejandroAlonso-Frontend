@@ -18,6 +18,7 @@ export class MusicGuessComponent implements OnInit {
   attempts: Boss[] = [];
   chosenBosses: { boss: Boss; correct: boolean }[] = [];
   resetCountdown: string = '';
+  streak: number = 0;
   private countdownInterval: any;
 
   constructor(private bossService: BossService) {}
@@ -26,30 +27,81 @@ export class MusicGuessComponent implements OnInit {
     this.getMusicForToday();
 
     this.bossService.getAllBosses().subscribe((bosses: Boss[]) => {
-        this.bossList = bosses;
+      this.bossList = bosses;
+
+      const savedAttempts = localStorage.getItem('musicChosenBosses');
+      if (savedAttempts) {
+        this.chosenBosses = JSON.parse(savedAttempts);
+
+        this.chosenBosses = this.chosenBosses.map(entry => {
+          const refreshedBoss = this.bossList.find(b => b.name === entry.boss.name);
+          return refreshedBoss ? { boss: refreshedBoss, correct: entry.correct } : entry;
+        });
+      }
     });
   }
+
 
   getMusicForToday(): void {
     this.bossService.getRandomBossMusicForToday().subscribe(response => {
       this.musicUrl = response.music;
       this.bossName = response.name;
       this.boss = response;
+
+      const today = new Date().toISOString().split('T')[0];
+      const savedMusicBossId = localStorage.getItem('musicBossId');
+      const savedDate = localStorage.getItem('musicSolvedDate');
+
+      if (savedMusicBossId && savedMusicBossId !== String(this.boss.id)) {
+        localStorage.removeItem('musicChosenBosses');
+        localStorage.removeItem('musicSolvedDate');
+      } else if (savedDate && savedDate !== today) {
+        localStorage.removeItem('musicChosenBosses');
+        localStorage.removeItem('musicSolvedDate');
+      }
+
+      localStorage.setItem('musicBossId', String(this.boss.id));
+      localStorage.setItem('musicSolvedDate', today);
+
+      const storedBosses = localStorage.getItem('musicChosenBosses');
+      if (storedBosses && savedDate === today && savedMusicBossId === String(this.boss.id)) {
+        try {
+          this.chosenBosses = JSON.parse(storedBosses);
+          this.attempts = this.chosenBosses.map(e => e.boss);
+          this.solved = this.chosenBosses.some(e => e.correct);
+          if (this.solved) {
+            this.startCountdown();
+          }
+        } catch {
+          localStorage.removeItem('musicChosenBosses');
+          localStorage.removeItem('musicSolvedDate');
+        }
+      }
     });
   }
-  
+
 
   onBossSelected(boss: Boss): void {
+    console.log('Intento seleccionado:', boss);
+
     this.attempts.push(boss);
-  
-    if (this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
+    const isCorrect = this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase();
+
+    this.chosenBosses.push({ boss: boss, correct: isCorrect });
+    console.log('Lista actualizada de intentos:', this.chosenBosses);
+
+    localStorage.setItem('musicChosenBosses', JSON.stringify(this.chosenBosses));
+    console.log('Guardado en localStorage:', localStorage.getItem('musicChosenBosses'));
+
+    if (isCorrect) {
       this.solved = true;
+      const today = new Date().toISOString().split('T')[0];
+      localStorage.setItem('musicSolvedDate', today);
       this.startCountdown();
     }
-  
-    const isCorrect = this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase();
-    this.chosenBosses.push({ boss: boss, correct: isCorrect });
   }
+
+
   
 
 //   onSearch(): void {

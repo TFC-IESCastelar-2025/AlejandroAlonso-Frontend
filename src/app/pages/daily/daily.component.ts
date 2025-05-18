@@ -16,19 +16,91 @@ export class DailyComponent implements OnInit {
   bossList: Boss[] = []; 
   filteredBosses: Boss[] = [];
   resetCountdown: string = '';
+  streak: number = 0;
   private countdownInterval: any;
 
 
   constructor(private bossService: BossService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.bossService.getDailyBoss().subscribe(boss => this.boss = boss);
+    const today = new Date().toISOString().split('T')[0];
+
+    this.bossService.getDailyBoss().subscribe(boss => {
+      const savedBossId = localStorage.getItem('dailyBossId');
+
+      if (savedBossId && parseInt(savedBossId, 10) !== boss.id) {
+        Object.keys(localStorage).forEach(key => {
+          if (key.startsWith('dailySolved_') || key.startsWith('dailyAttempts_')) {
+            localStorage.removeItem(key);
+          }
+        });
+      }
+
+      localStorage.setItem('dailyBossId', boss.id.toString());
+
+      this.boss = boss;
+
+      const solvedId = localStorage.getItem('dailySolved_' + today);
+      if (solvedId && parseInt(solvedId, 10) === boss.id) {
+        this.solved = true;
+        this.loadStreak(today);
+        this.startCountdown();
+      }
+
+      const savedAttempts = localStorage.getItem('dailyAttempts_' + today);
+      if (savedAttempts) {
+        this.attempts = JSON.parse(savedAttempts);
+      }
+    });
 
     this.bossService.getAllBosses().subscribe((bosses: Boss[]) => {
       this.bossList = bosses;
     });
   }
 
+  private loadStreak(today: string) {
+    const savedStreak = localStorage.getItem('dailyStreak');
+    this.streak = savedStreak ? parseInt(savedStreak, 10) : 0;
+
+
+    const yesterdayDate = new Date(today);
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+    const yesterday = yesterdayDate.toISOString().split('T')[0];
+    const solvedYesterday = localStorage.getItem('dailySolved_' + yesterday);
+
+    if (solvedYesterday) {
+      this.streak++;
+    } else {
+      this.streak = 1;
+    }
+    localStorage.setItem('dailyStreak', this.streak.toString());
+  }
+
+  
+  onBossSelected(boss: Boss): void {
+    this.attempts.push(boss);
+    
+    const today = new Date().toISOString().split('T')[0];
+    localStorage.setItem('dailyAttempts_' + today, JSON.stringify(this.attempts));
+    
+    if (this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
+      this.solved = true;
+      this.loadStreak(today);  // Actualizar la racha al acertar
+      this.startCountdown();
+      
+      const token = this.authService.getToken();
+      
+      if (token && !this.authService.isTokenExpired()) {
+        this.bossService.acertarBoss(boss.id).subscribe({
+          next: () => console.log('Boss saved to user history.'),
+          error: err => console.error('Error saving boss guess', err),
+        });
+      }
+
+      localStorage.setItem('dailySolved_' + today, this.boss.id.toString());
+    }
+  }
+  
   // onSearch(): void {
   //   const query = this.guess.toLowerCase();
   //   this.filteredBosses = this.bossList
@@ -40,37 +112,18 @@ export class DailyComponent implements OnInit {
   //   this.filteredBosses = [];
   //   // this.onGuess();
   // }
-
-  onBossSelected(boss: Boss): void {
-    this.attempts.push(boss);
-
-    if (this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
-      this.solved = true;
-      this.startCountdown();
-
-      const token = this.authService.getToken();
-
-      if (token && !this.authService.isTokenExpired()) {
-        this.bossService.acertarBoss(boss.id).subscribe({
-          next: () => console.log('Boss saved to user history.'),
-          error: err => console.error('Error saving boss guess', err),
-        });
-      }
-    }
-  }
-
   // onGuess(): void {
-  //   const match = this.bossList.find(
-  //     b => b.name.toLowerCase() === this.guess.toLowerCase()
-  //   );
-
-  //   if (!match) return;
-
-  //   this.attempts.push(match);
-
-  //   if (this.boss.name.toLowerCase() === this.guess.toLowerCase()) {
-  //     this.solved = true; 
-  //     this.startCountdown();
+    //   const match = this.bossList.find(
+      //     b => b.name.toLowerCase() === this.guess.toLowerCase()
+      //   );
+      
+      //   if (!match) return;
+      
+      //   this.attempts.push(match);
+      
+      //   if (this.boss.name.toLowerCase() === this.guess.toLowerCase()) {
+        //     this.solved = true; 
+        //     this.startCountdown();
   //   }
 
   //   this.guess = '';

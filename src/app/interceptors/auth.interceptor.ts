@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          // 🔐 Token inválido o caducado
+          // Token inválido o caducado
           this.authService.logout();
           this.router.navigate(['/login']);
         }

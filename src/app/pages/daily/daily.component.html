@@ -1,4 +1,7 @@
 <div class="container mt-4">
+    <div *ngIf="streak >= 1" class="mb-3">
+    🔥 Racha actual: <strong>{{ streak }}</strong>
+    </div>
     <h2>Boss diario</h2>
     <!-- <div *ngIf="!solved">
       <input
