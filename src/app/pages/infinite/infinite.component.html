@@ -29,7 +29,7 @@
         </li>
       </ul>
     </div> -->
-    <app-boss-search *ngIf="!solved" (selectedBoss)="onBossSelected($event)"></app-boss-search>
+    <app-boss-search *ngIf="!solved" [attempts]="attempts" (selectedBoss)="onBossSelected($event)"></app-boss-search>
   
     <table class="table table-bordered" *ngIf="attempts.length > 0">
       <thead>

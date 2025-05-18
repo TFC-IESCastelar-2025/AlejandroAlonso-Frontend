@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Boss } from 'src/app/interfaces/boss.interface';
 import { BossService } from 'src/app/services/boss.service';
 
@@ -11,6 +11,8 @@ export class BossSearchComponent {
   bossList: Boss[] = []; 
   guess: string = '';
   filteredBosses: Boss[] = [];
+
+  @Input() attempts: Boss[] = []; 
   @Output() selectedBoss: EventEmitter<Boss> = new EventEmitter<Boss>();
 
   constructor(private bossService: BossService) {}
@@ -25,10 +27,12 @@ export class BossSearchComponent {
 
   onSearch(): void {
     const query = this.guess.toLowerCase();
+
     this.filteredBosses = this.bossList
-    .filter(boss =>
-      boss.name.toLowerCase().startsWith(query)
-    );
+      .filter(boss =>
+        boss.name.toLowerCase().startsWith(query) &&
+        !this.attempts.some(attempt => attempt.id === boss.id) 
+      );
   }
 
   selectSuggestion(boss: Boss): void {
