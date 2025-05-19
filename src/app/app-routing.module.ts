@@ -10,9 +10,11 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { BestiaryComponent } from './pages/bestiary/bestiary.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { RankingComponent } from './pages/ranking/ranking.component';
+import { StartMenuComponent } from './pages/start-menu/start-menu.component';
 // import { NotFoundComponent } from './pages/not-found/not-found.component'; 
 
 const routes: Routes = [
+    { path: '', component: StartMenuComponent },
     { path: 'daily', component: DailyComponent },
     { path: 'infinite', component: InfiniteComponent },
     { path: 'login', component: LoginComponent },
@@ -23,8 +25,8 @@ const routes: Routes = [
     { path: 'music-guess-infinite', component: MusicGuessInfiniteComponent },
     { path: 'ranking', component: RankingComponent },
     { path: 'bestiary', component: BestiaryComponent },
-    { path: '', redirectTo: 'daily', pathMatch: 'full' }, // <- redirige a /daily por defecto
-    { path: '**', redirectTo: 'daily' } // <- redirige a /daily por defecto
+    { path: '', redirectTo: '', pathMatch: 'full' }, // <- redirige a '' por defecto
+    { path: '**', redirectTo: '' } // <- redirige a '' por defecto
 //   { path: '**', component: NotFoundComponent }
 ];
 

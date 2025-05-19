@@ -10,7 +10,6 @@ import { SharedModule } from './shared/shared.modules';
 import { InfiniteComponent } from './pages/infinite/infinite.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { CustomModalComponent } from './shared/components/custom-modal/custom-modal.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { MusicGuessComponent } from './pages/music-guess/music-guess.component';
 import { BossSearchComponent } from './components/boss-search/boss-search.component';
@@ -21,7 +20,7 @@ import { AudioPlayerComponent } from './components/audio-player/audio-player.com
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { RankingComponent } from './pages/ranking/ranking.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { PaginatorComponent } from './shared/components/paginator/paginator.component';
+import { StartMenuComponent } from './pages/start-menu/start-menu.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import { PaginatorComponent } from './shared/components/paginator/paginator.comp
     DailyComponent,
     InfiniteComponent,
     LoginComponent,
-    CustomModalComponent,
     RegisterComponent,
     MusicGuessComponent,
     MusicGuessInfiniteComponent,
@@ -39,7 +37,7 @@ import { PaginatorComponent } from './shared/components/paginator/paginator.comp
     AudioPlayerComponent,
     VerifyEmailComponent,
     RankingComponent,
-    PaginatorComponent
+    StartMenuComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap');
+
+.souls-section-wrapper {
+  width: 100vw; /* Ocupa todo el ancho de la ventana */
+  min-height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.souls-menu-container {
+  width: 100%;
+  max-width: 1500px; /* Controla el ancho del contenido, puedes ajustar */
+  text-align: center;
+}
+
+.souls-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 8vw, 10rem);
+  color: #ffffff;
+  margin-bottom: 3rem;
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.3),
+    0 0 15px rgba(255, 255, 255, 0.2);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+}
+
+.souls-menu-option {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  color: #c0c0c0;
+  margin: 1rem auto;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
+  display: block;
+  max-width: 300px;
+}
+
+.souls-menu-option::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 80%;
+  margin: 8px auto 0;
+  background: linear-gradient(to right, transparent, #c0c0c0, transparent);
+  opacity: 0.5;
+}
+
+.souls-menu-option:hover {
+  color: #ffffff;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
