@@ -13,10 +13,10 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
-       NavbarComponent,
-       FooterComponent,
-       PaginatorComponent,
-       CustomModalComponent
+      NavbarComponent,
+      FooterComponent,
+      PaginatorComponent,
+      CustomModalComponent
     ],
     imports: [
       CommonModule,    

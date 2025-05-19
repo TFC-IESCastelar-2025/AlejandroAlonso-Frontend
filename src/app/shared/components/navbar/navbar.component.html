@@ -1,59 +1,16 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid d-flex justify-content-between">
-    <a class="navbar-brand" href="/">Soulsdle</a>
+<div *ngIf="!isLoggedIn" class="login-box d-flex flex-column gap-2">
+  <a class="btn souls-btn" routerLink="/login">Iniciar sesión</a>
+  <a class="btn souls-btn alt" routerLink="/register">Registrarse</a>
+</div>
 
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/daily">Diario</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/infinite">Infinito</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/music-guess">Musica</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/music-guess-infinite">Musica Infinito</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link" routerLink="/ranking">Ranking</a>
-        </li>
-      </ul>
-    </div>
-      
-      <!-- Parte de login cuando no está logueado -->
-      <ul class="navbar-nav ms-auto d-flex" *ngIf="!isLoggedIn">
-        <li class="nav-item">
-          <a class="nav-link btn btn-outline-light" routerLink="/login" style="margin-right: 10px;">Iniciar sesión</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-outline-primary" routerLink="/register">Registrarse</a>
-        </li>
-      </ul>
-
-      <!-- Parte de login cuando está logueado -->
-      <ul class="navbar-nav ms-auto" *ngIf="isLoggedIn">
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle text-light"
-            href="#"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Bienvenido, {{ username }}
-          </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" routerLink="/profile">Mi perfil</a>
-            <a class="dropdown-item" routerLink="/bestiary">Bestiario</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" (click)="logout(); $event.preventDefault()">Cerrar sesión</a>
-          </div>
-        </li>
-      </ul>
-
-
-  </div>
-</nav>
+<div *ngIf="isLoggedIn" class="login-box dropdown">
+  <button class="btn souls-btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    {{ username }}
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end bg-dark text-light border-secondary" aria-labelledby="userDropdown">
+    <li><a class="dropdown-item text-light" routerLink="/profile">Mi perfil</a></li>
+    <li><a class="dropdown-item text-light" routerLink="/bestiary">Bestiario</a></li>
+    <li><hr class="dropdown-divider bg-secondary"></li>
+    <li><a class="dropdown-item text-light" href="#" (click)="logout(); $event.preventDefault()">Cerrar sesión</a></li>
+  </ul>
+</div>

@@ -17,7 +17,11 @@ export class RankingComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getRankingUsersBosses().subscribe({
       next: (data) => {
-        this.ranking = data.sort((a, b) => b.bossesCount - a.bossesCount);
+        this.ranking = data
+        .filter(user => user && user.bossesCount !== undefined)
+        .sort((a, b) => (b.bossesCount ?? 0) - (a.bossesCount ?? 0));
+
+        console.log(this.ranking);
       },
       error: (err) => {
         console.error('Error al obtener el ranking', err);
