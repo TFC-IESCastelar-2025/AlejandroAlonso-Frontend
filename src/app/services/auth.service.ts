@@ -5,9 +5,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import jwt_decode from 'jwt-decode';
 import { Boss } from '../interfaces/boss.interface';
+import { environment } from 'src/environments/environment';
 
-const AUTH_API = 'http://localhost:4242/auth/';
-const PROFILE_URL = 'http://localhost:4242/profile'
+const AUTH_API = environment.authUrl;
+const PROFILE_URL = environment.profileUrl;
 
 export interface UserProfile {
   id: number,

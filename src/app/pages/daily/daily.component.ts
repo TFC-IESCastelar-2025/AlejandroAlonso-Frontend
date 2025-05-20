@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BossService } from 'src/app/services/boss.service';
 import { Boss } from 'src/app/interfaces/boss.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   standalone: false,
@@ -20,7 +21,7 @@ export class DailyComponent implements OnInit {
   streak: number = 0;
   private countdownInterval: any;
 
-  constructor(private bossService: BossService, private authService: AuthService) {}
+  constructor(private bossService: BossService, private authService: AuthService, private userService: UserService) {}
 
   ngOnInit(): void {
     const today = new Date().toISOString().split('T')[0];
@@ -46,7 +47,7 @@ export class DailyComponent implements OnInit {
         const solvedId = localStorage.getItem('dailySolved_' + today);
         if (solvedId && parseInt(solvedId, 10) === boss.id) {
           this.solved = true;
-          this.loadStreak(today);
+          this.loadStreakFromBackend();
           this.startCountdown();
         }
 
@@ -65,22 +66,34 @@ export class DailyComponent implements OnInit {
     });
   }
 
-  private loadStreak(today: string) {
-    const savedStreak = localStorage.getItem('dailyStreak');
-    this.streak = savedStreak ? parseInt(savedStreak, 10) : 0;
-
-    const yesterdayDate = new Date(today);
-    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-    const yesterday = yesterdayDate.toISOString().split('T')[0];
-    const solvedYesterday = localStorage.getItem('dailySolved_' + yesterday);
-
-    if (solvedYesterday) {
-      this.streak++;
-    } else {
-      this.streak = 1;
-    }
-    localStorage.setItem('dailyStreak', this.streak.toString());
+  private loadStreakFromBackend(): void {
+    this.userService.getUserStreak().subscribe({
+      next: (streak: number) => {
+        this.streak = streak;
+      },
+      error: err => {
+        console.error('Error obteniendo el streak del usuario', err);
+        this.streak = 0;
+      }
+    });
   }
+
+  // private loadStreak(today: string) {
+  //   const savedStreak = localStorage.getItem('dailyStreak');
+  //   this.streak = savedStreak ? parseInt(savedStreak, 10) : 0;
+
+  //   const yesterdayDate = new Date(today);
+  //   yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  //   const yesterday = yesterdayDate.toISOString().split('T')[0];
+  //   const solvedYesterday = localStorage.getItem('dailySolved_' + yesterday);
+
+  //   if (solvedYesterday) {
+  //     this.streak++;
+  //   } else {
+  //     this.streak = 1;
+  //   }
+  //   localStorage.setItem('dailyStreak', this.streak.toString());
+  // }
 
   onBossSelected(boss: Boss): void {
     this.attempts.push(boss);
@@ -96,7 +109,6 @@ export class DailyComponent implements OnInit {
 
     if (this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
       this.solved = true;
-      this.loadStreak(today);
       this.startCountdown();
 
       const token = this.authService.getToken();
@@ -104,6 +116,12 @@ export class DailyComponent implements OnInit {
         this.bossService.acertarBoss(boss.id).subscribe({
           next: () => console.log('Boss saved to user history.'),
           error: err => console.error('Error saving boss guess', err),
+        });
+        this.userService.addUserStreak().subscribe({
+          next: (streak: number) => {
+            this.streak = streak;
+          },
+          error: err => console.error('Error al actualizar el streak', err)
         });
       }
 

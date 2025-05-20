@@ -3,3 +3,9 @@ export interface UserRanking {
     username:       string;
     bossesCount:    number;
 }
+
+export interface UserRankingStreak {
+    id:             number;
+    username:       string;
+    max_streak:     number;
+}
