@@ -26,6 +26,8 @@ export class DailyComponent implements OnInit {
   ngOnInit(): void {
     const today = new Date().toISOString().split('T')[0];
 
+    this.loadStreakFromBackend();
+
     this.bossService.getAllBosses().subscribe((bosses: Boss[]) => {
       this.bossList = bosses;
 
@@ -109,6 +111,15 @@ export class DailyComponent implements OnInit {
 
     if (this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
       this.solved = true;
+      this.userService.addUserStreak().subscribe({
+        next: (updatedStreak) => this.streak = updatedStreak,
+        error: (err) => {
+          if (err.status !== 403) {
+            console.error('Error al actualizar el streak', err);
+          }
+        }
+      });
+
       this.startCountdown();
 
       const token = this.authService.getToken();
@@ -116,12 +127,6 @@ export class DailyComponent implements OnInit {
         this.bossService.acertarBoss(boss.id).subscribe({
           next: () => console.log('Boss saved to user history.'),
           error: err => console.error('Error saving boss guess', err),
-        });
-        this.userService.addUserStreak().subscribe({
-          next: (streak: number) => {
-            this.streak = streak;
-          },
-          error: err => console.error('Error al actualizar el streak', err)
         });
       }
 

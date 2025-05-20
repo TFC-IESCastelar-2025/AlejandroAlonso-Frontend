@@ -6,6 +6,8 @@ import { UserRanking, UserRankingStreak } from '../interfaces/user.interface';
 
 const userUrl = environment.userUrl
 
+const profileUrl = environment.profileUrl
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,11 +24,11 @@ export class UserService {
   }
 
   getUserStreak(): Observable<number> {
-    return this.http.get<number>(`${userUrl}/streak`);
+    return this.http.get<number>(`${profileUrl}/streak`);
   }
 
   addUserStreak(): Observable<number> {
-    return this.http.get<number>(`${userUrl}/add-streak`);
+    return this.http.get<number>(`${profileUrl}/add-streak`);
   }
 
 }
