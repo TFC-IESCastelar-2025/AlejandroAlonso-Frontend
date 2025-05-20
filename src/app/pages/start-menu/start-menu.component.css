@@ -2,12 +2,13 @@
 
 .souls-section-wrapper {
     width: 100vw; 
-    min-height: 100vh;
+    min-height: 94.2vh;
     background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    padding-bottom:0%;
     box-sizing: border-box;
 }
 

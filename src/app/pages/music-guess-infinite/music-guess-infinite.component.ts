@@ -5,7 +5,8 @@ import { BossService } from 'src/app/services/boss.service';
 
 @Component({
   selector: 'app-music-guess-infinite',
-  templateUrl: './music-guess-infinite.component.html'
+  templateUrl: './music-guess-infinite.component.html',
+  styleUrls: ['./music-guess-infinite.component.css']
 })
 export class MusicGuessInfiniteComponent implements OnInit {
   musicUrl: string = '';

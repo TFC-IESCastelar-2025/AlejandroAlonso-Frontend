@@ -6,6 +6,7 @@ import { Boss } from 'src/app/interfaces/boss.interface';
   standalone: false,
   selector: 'app-infinte',
   templateUrl: './infinite.component.html',
+  styleUrls: ['./infinite.component.css']
 })
 export class InfiniteComponent implements OnInit {
   boss!: Boss; 
