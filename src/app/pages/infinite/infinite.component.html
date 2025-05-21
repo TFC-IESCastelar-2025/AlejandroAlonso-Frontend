@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let attempt of attempts" [ngClass]="{ 'table-success': attempt.image === boss.image }">
+          <tr *ngFor="let attempt of attempts.slice().reverse()" [ngClass]="{ 'table-success': attempt.image === boss.image }">
             <td
               [ngClass]="isMatch('image', attempt) ? 'bg-success text-white' : 'bg-danger text-white'"
               style="width: 80px; height: 80px; padding: 0;"

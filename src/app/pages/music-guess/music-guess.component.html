@@ -9,7 +9,7 @@
     <h5>Intentos:</h5>
     <ul class="list-group">
       <li
-        *ngFor="let entry of chosenBosses"
+        *ngFor="let entry of chosenBosses.slice().reverse()"
         class="list-group-item d-flex align-items-center"
         [ngClass]="entry.correct ? 'bg-success text-white' : 'bg-danger text-white'"
       >
