@@ -3,6 +3,7 @@ import { BossService } from 'src/app/services/boss.service';
 import { Boss } from 'src/app/interfaces/boss.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -19,14 +20,23 @@ export class DailyComponent implements OnInit {
   filteredBosses: Boss[] = [];
   resetCountdown: string = '';
   streak: number = 0;
+  isLoggedIn: boolean = false;
+  showModal: boolean = false;
   private countdownInterval: any;
 
-  constructor(private bossService: BossService, private authService: AuthService, private userService: UserService) {}
+  constructor(private bossService: BossService, private authService: AuthService, private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     const today = new Date().toISOString().split('T')[0];
+    const dontRemind = localStorage.getItem('dontRemindLoginModal');
 
-    this.loadStreakFromBackend();
+    this.authService.authStatus.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+      if (loggedIn) {
+        this.loadStreakFromBackend();
+      }
+    });
+    
 
     this.bossService.getAllBosses().subscribe((bosses: Boss[]) => {
       this.bossList = bosses;
@@ -49,7 +59,12 @@ export class DailyComponent implements OnInit {
         const solvedId = localStorage.getItem('dailySolved_' + today);
         if (solvedId && parseInt(solvedId, 10) === boss.id) {
           this.solved = true;
-          this.loadStreakFromBackend();
+          if (this.isLoggedIn) {
+            this.loadStreakFromBackend();
+          }
+          if (!dontRemind) {
+            this.showModal = true;
+          }
           this.startCountdown();
         }
 
@@ -66,6 +81,20 @@ export class DailyComponent implements OnInit {
         }
       });
     });
+  }
+
+  onModalClose(shouldRedirect: boolean): void {
+    this.showModal = false;
+
+    if (shouldRedirect) {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  handleDontRemind(checked: boolean): void {
+    if (checked) {
+      localStorage.setItem('dontRemindLoginModal', 'true');
+    }
   }
 
   private loadStreakFromBackend(): void {
@@ -111,14 +140,16 @@ export class DailyComponent implements OnInit {
 
     if (this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
       this.solved = true;
-      this.userService.addUserStreak().subscribe({
-        next: (updatedStreak) => this.streak = updatedStreak,
-        error: (err) => {
-          if (err.status !== 403) {
-            console.error('Error al actualizar el streak', err);
+      if(this.isLoggedIn){
+        this.userService.addUserStreak().subscribe({
+          next: (updatedStreak) => this.streak = updatedStreak,
+          error: (err) => {
+            if (err.status !== 403) {
+              console.error('Error al actualizar el streak', err);
+            }
           }
-        }
-      });
+        });
+      }
 
       this.startCountdown();
 

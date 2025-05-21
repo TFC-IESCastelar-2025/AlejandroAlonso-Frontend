@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { filter } from 'rxjs';
 // import { JsonService } from './json.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { NavigationStart, Router } from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'Souldle';
   showSessionModal = false;
-
+  showMenuBar = true;
   showModal = false;
   modalConfig = {
     title: 'Sesión expirada',
@@ -23,18 +24,21 @@ export class AppComponent implements OnInit{
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.checkToken();
+  this.checkToken();
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.checkToken();
-      }
-    });
+  this.router.events.subscribe((event) => {
+    if (event instanceof NavigationStart) {
+      this.checkToken();
+    }
+    if (event instanceof NavigationEnd) {
+      this.showMenuBar = event.url !== '/';
+    }
+  });
 
-    this.authService.sessionExpired$.subscribe(() => {
-      this.showSessionModal = true;
-    });
-  }
+  this.authService.sessionExpired$.subscribe(() => {
+    this.showSessionModal = true;
+  });
+}
 
   private checkToken(): void {
     const token = this.authService.getToken();

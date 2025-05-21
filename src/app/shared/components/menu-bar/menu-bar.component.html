@@ -1,0 +1,35 @@
+<div *ngIf="isToggleButtonVisible" style="position: fixed; top: 60px; left: 40px; z-index: 1100;">
+  <button class="menu-btn" (click)="toggleMenu()" title="Mostrar menú">
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+<div 
+  class="menu-bar" 
+  [ngClass]="{ 'show': isMenuVisible, 'hide': !isMenuVisible }"
+  [ngStyle]="{ 'background-image': 'url(' + backgroundImage + ')' }"
+  [style.position]="isToggleButtonVisible ? 'fixed' : 'fixed'"
+  [style.top]="isToggleButtonVisible ? '43px' : '50px'"
+  [style.left]="isToggleButtonVisible ? '95px' : '100px'"
+  [style.zIndex]="1051"
+>
+    <button class="menu-btn" title="Inicio" [routerLink]="['/']">
+        <img src="/assets/start2.png" alt="">
+    </button>
+    <button class="menu-btn" title="Ranking" [routerLink]="['/ranking']">
+        <img src="/assets/ranking.png" alt="">
+    </button>
+    <ng-container *ngIf="isLoggedIn">
+        <button class="menu-btn" title="Bestiario" [routerLink]="['/bestiary']">
+            <img src="/assets/bestiary.png" alt="">
+        </button>
+    </ng-container>
+    <button class="menu-btn" title="Perfil" [routerLink]="['/profile']">
+        <img src="/assets/profile.png" alt="">
+    </button>
+    <ng-container *ngIf="isLoggedIn">
+        <button class="menu-btn" title="Cerrar sesión" (click)="logout(); $event.preventDefault()">
+            <img src="/assets/house.png" alt="">
+        </button>
+    </ng-container>
+</div>

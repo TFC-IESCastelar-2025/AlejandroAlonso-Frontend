@@ -1,7 +1,6 @@
 <div class="d-flex flex-column min-vh-100">
-  <app-navbar></app-navbar>
-  
-  <main class="flex-grow-1 d-flex justify-content-center align-items-center">
+  <app-menu-bar *ngIf="showMenuBar"></app-menu-bar>
+  <main class="main-bg flex-grow-1 d-flex justify-content-center align-items-center">
     <!-- Modal de sesión expirada -->
     <app-custom-modal
     *ngIf="showModal"

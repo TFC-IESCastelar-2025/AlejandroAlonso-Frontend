@@ -10,9 +10,14 @@ export class CustomModalComponent {
   @Input() message: string = '';
   @Input() buttonText: string = 'Aceptar';
 
-  @Output() close = new EventEmitter<void>();
+  @Input() showCheckbox: boolean = false; 
+  dontShowAgain: boolean = false; 
 
-  onClose(): void {
-    this.close.emit();
+  @Output() close = new EventEmitter<boolean>();
+  @Output() dontRemind = new EventEmitter<boolean>();
+
+  onClose(shouldRedirect: boolean = false): void {
+    this.dontRemind.emit(this.dontShowAgain);
+    this.close.emit(shouldRedirect);
   }
 }

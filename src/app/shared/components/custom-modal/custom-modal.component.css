@@ -12,4 +12,89 @@
       opacity: 1;
     }
   }
-  
+
+.souls-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.souls-modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.souls-modal-content {
+  position: relative;
+  background-image: url('/assets/ds3-texture.png');
+  background-size: cover;
+  background-color: #1a1a1a;
+  border: 2px solid #a07c55;
+  padding: 30px 40px;
+  max-width: 600px;
+  text-align: center;
+  font-family: 'Georgia', serif;
+}
+
+.souls-text {
+  color: #dcdcdc;
+  font-size: 20px;
+  text-shadow: 0 0 5px black;
+}
+
+.souls-ok-btn {
+  margin-top: 20px;
+  padding: 10px 40px;
+  font-size: 20px;
+  font-family: 'Georgia', serif;
+  color: #dcdcdc;
+  background: linear-gradient(to bottom, #2f3e51, #0e1a26);
+  border: 2px solid #a07c55;
+  border-radius: 3px;
+  text-shadow: 0 0 3px black;
+  transition: transform 0.1s;
+}
+
+.souls-ok-btn:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.souls-modal {
+  animation: soulsFadeIn 0.5s ease-out;
+}
+
+@keyframes soulsFadeIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.souls-checkbox label {
+  color: #ccc;
+  font-family: 'Georgia', serif;
+}
+
+.souls-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #dcdcdc;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  text-shadow: 0 0 5px black;
+  z-index: 1;
+}
+
+.souls-close-btn:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}

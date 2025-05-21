@@ -1,16 +1,22 @@
-<div class="modal-backdrop fade show" style="z-index: 1050;"></div>
+<div class="modal-backdrop fade show souls-modal-backdrop"></div>
 
-<div class="modal fade show d-block animated-modal" style="z-index: 1055;">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-primary">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title">{{ title }}</h5>
+<div class="modal fade show d-block souls-modal" style="z-index: 1055;">
+  <div class="souls-modal-dialog">
+    <div class="souls-modal-content position-relative">
+      <button class="souls-close-btn" (click)="onClose(false)"><i class="fa-solid fa-xmark"></i></button>
+      <div class="souls-modal-body">
+        <p class="souls-text">{{ message }}</p>
+        <div *ngIf="showCheckbox" class="form-check mt-3 souls-checkbox">
+          <input class="form-check-input" type="checkbox" id="dontShowAgain" [(ngModel)]="dontShowAgain">
+          <label class="form-check-label" for="dontShowAgain">
+            No volver a mostrar este mensaje
+          </label>
+        </div>
       </div>
-      <div class="modal-body">
-        <p>{{ message }}</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-light" (click)="onClose()">{{ buttonText }}</button>
+      <div class="souls-modal-footer">
+        <button class="souls-ok-btn" (click)="onClose(true)">
+          {{ buttonText || 'OK' }}
+        </button>
       </div>
     </div>
   </div>

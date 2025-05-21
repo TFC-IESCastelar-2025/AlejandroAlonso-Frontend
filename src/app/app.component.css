@@ -3,6 +3,13 @@
   width: 100%;
 }
 
+.main-bg {
+  background-image: url('/assets/bg-base.png');
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-position: center;
+  background-color: black;
+}
 
 .animated-modal {
   animation: slideDown 0.4s ease-out;

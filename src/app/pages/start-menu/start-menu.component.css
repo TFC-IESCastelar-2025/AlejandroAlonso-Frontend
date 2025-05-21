@@ -3,7 +3,7 @@
 .souls-section-wrapper {
     width: 100vw; 
     min-height: 94.2vh;
-    background-color: black;
+    background-color: black !important;
     display: flex;
     justify-content: center;
     align-items: center;

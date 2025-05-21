@@ -21,6 +21,7 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { RankingComponent } from './pages/ranking/ranking.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { StartMenuComponent } from './pages/start-menu/start-menu.component';
+import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { StartMenuComponent } from './pages/start-menu/start-menu.component';
     AudioPlayerComponent,
     VerifyEmailComponent,
     RankingComponent,
-    StartMenuComponent
+    StartMenuComponent,
+    MenuBarComponent
   ],
   imports: [
     BrowserModule,
