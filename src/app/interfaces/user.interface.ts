@@ -7,5 +7,5 @@ export interface UserRanking {
 export interface UserRankingStreak {
     id:             number;
     username:       string;
-    max_streak:     number;
+    maxStreak:      number;
 }

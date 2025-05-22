@@ -28,15 +28,14 @@ export class DailyComponent implements OnInit {
 
   ngOnInit(): void {
     const today = new Date().toISOString().split('T')[0];
-    const dontRemind = localStorage.getItem('dontRemindLoginModal');
 
     this.authService.authStatus.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
       if (loggedIn) {
         this.loadStreakFromBackend();
       }
+      this.checkAndShowModal(today);
     });
-    
 
     this.bossService.getAllBosses().subscribe((bosses: Boss[]) => {
       this.bossList = bosses;
@@ -53,7 +52,6 @@ export class DailyComponent implements OnInit {
         }
 
         localStorage.setItem('dailyBossId', boss.id.toString());
-
         this.boss = boss;
 
         const solvedId = localStorage.getItem('dailySolved_' + today);
@@ -62,9 +60,7 @@ export class DailyComponent implements OnInit {
           if (this.isLoggedIn) {
             this.loadStreakFromBackend();
           }
-          if (!dontRemind) {
-            this.showModal = true;
-          }
+          this.checkAndShowModal(today); 
           this.startCountdown();
         }
 
@@ -88,6 +84,14 @@ export class DailyComponent implements OnInit {
 
     if (shouldRedirect) {
       this.router.navigate(['/login']);
+    }
+  }
+
+  checkAndShowModal(today: string) {
+    const dontRemind = localStorage.getItem('dontRemindLoginModal');
+    const solvedId = localStorage.getItem('dailySolved_' + today);
+    if (solvedId && parseInt(solvedId, 10) === this.boss?.id && !this.isLoggedIn && !dontRemind) {
+      this.showModal = true;
     }
   }
 
@@ -149,6 +153,8 @@ export class DailyComponent implements OnInit {
             }
           }
         });
+      } else {
+        this.showModal=true;
       }
 
       this.startCountdown();

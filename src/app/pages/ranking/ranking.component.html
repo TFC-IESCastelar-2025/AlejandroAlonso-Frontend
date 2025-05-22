@@ -1,28 +1,61 @@
 <div class="container mt-4">
   <h2 class="text-center mb-4">Ranking de usuarios</h2>
-  <div class="table-responsive">
-    <table class="table table-dark table-striped table-bordered">
+  <div class="d-flex justify-content-center mb-3" style="gap: 20px;">
+    <button class="btn btn-outline-light me-2" (click)="toggleRanking('bosses')">
+      Bosses Adivinados
+    </button>
+    <button class="btn btn-outline-light" (click)="toggleRanking('streak')">
+      Racha Máxima en daily
+    </button>
+  </div>
+
+  <div *ngIf="activeRanking === 'bosses'" class="table-responsive">
+    <table class="table table-dark table-striped table-bordered table-narrow">
       <thead>
         <tr>
-          <th>Posicion</th>
-          <th>Usuario</th>
-          <th>Bosses adivinados</th>
+          <th style="width: 80px;">Posición</th>
+          <th style="width: 300px;">Usuario</th>
+          <th style="width: 80px;">Bosses adivinados</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of ranking | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+        <tr *ngFor="let user of rankingBosses | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
           <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.bossesCount }}</td>
         </tr>
       </tbody>
     </table>
+    <app-paginator
+      [currentPage]="currentPage"
+      [itemsPerPage]="itemsPerPage"
+      [totalItems]="rankingBosses.length"
+      (pageChange)="currentPage = $event"
+    ></app-paginator>
   </div>
 
+  <div *ngIf="activeRanking === 'streak'" class="table-responsive">
+    <table class="table table-dark table-striped table-bordered table-narrow">
+      <thead>
+        <tr>
+          <th style="width: 80px;">Posición</th>
+          <th style="width: 300px;">Usuario</th>
+          <th style="width: 80px;">Racha máxima</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of rankingStreak | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+          <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.maxStreak }}</td>
+        </tr>
+      </tbody>
+    </table>
     <app-paginator
-    [currentPage]="currentPage"
-    [itemsPerPage]="itemsPerPage"
-    [totalItems]="ranking.length"
-    (pageChange)="currentPage = $event"
-  ></app-paginator>
+      [currentPage]="currentPage"
+      [itemsPerPage]="itemsPerPage"
+      [totalItems]="rankingStreak.length"
+      (pageChange)="currentPage = $event"
+    ></app-paginator>
+  </div>
 </div>

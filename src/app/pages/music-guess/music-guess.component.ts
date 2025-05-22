@@ -19,6 +19,7 @@ export class MusicGuessComponent implements OnInit {
   attempts: Boss[] = [];
   chosenBosses: { boss: Boss; correct: boolean }[] = [];
   resetCountdown: string = '';
+  start: boolean = false;
   private countdownInterval: any;
 
   constructor(private bossService: BossService, private authService: AuthService) {}
@@ -72,6 +73,7 @@ export class MusicGuessComponent implements OnInit {
 
   onBossSelected(boss: Boss): void {
     console.log('Intento seleccionado:', boss);
+    this.start = true;
 
     this.attempts.push(boss);
     const isCorrect = this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase();

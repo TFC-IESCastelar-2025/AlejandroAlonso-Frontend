@@ -36,7 +36,7 @@ export class MenuBarComponent implements OnInit {
     const width = document.documentElement.clientWidth;
     console.log('Altura viewport:', height);
     console.log('Anchura viewport:', width);
-    if (height < 710 || width < 600 ) {
+    if (height < 710 || width < 670 ) {
       this.isMenuVisible = false;
       this.isToggleButtonVisible = true;
     } else {

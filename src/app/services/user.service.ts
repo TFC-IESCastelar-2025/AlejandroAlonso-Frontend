@@ -19,8 +19,8 @@ export class UserService {
     return this.http.get<UserRanking[]>(`${userUrl}/ranking`);
   }
 
-  getRankingUsersStreak(): Observable<UserRankingStreak[]> {
-    return this.http.get<UserRankingStreak[]>(`${userUrl}/ranking-streak`);
+  getRankingUserStreak(): Observable<UserRankingStreak[]> {
+    return this.http.get<UserRankingStreak[]>(`${profileUrl}/ranking-streak`);
   }
 
   getUserStreak(): Observable<number> {
@@ -30,5 +30,4 @@ export class UserService {
   addUserStreak(): Observable<number> {
     return this.http.get<number>(`${profileUrl}/add-streak`);
   }
-
 }

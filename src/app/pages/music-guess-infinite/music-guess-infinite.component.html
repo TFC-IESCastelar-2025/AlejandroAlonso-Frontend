@@ -5,25 +5,25 @@
       <app-audio-player *ngIf="musicUrl" [src]="musicUrl"></app-audio-player>
     </div>
   <app-boss-search *ngIf="!solved" [attempts]="attempts" (selectedBoss)="onBossSelected($event)"></app-boss-search>
-  <div *ngIf="chosenBosses.length > 0" class="mt-4">
-    <h5>Intentos:</h5>
-    <ul class="list-group">
-      <li
-        *ngFor="let entry of chosenBosses.slice().reverse()"
-        class="list-group-item d-flex align-items-center"
-        [ngClass]="entry.correct ? 'bg-success text-white' : 'bg-danger text-white'"
-      >
-        <div class="boss-image-container">
-          <img
-            [src]="entry.boss.image"
-            [alt]="entry.boss.name"
-            class="boss-image"
-          />
-        </div>
-        <span>{{ entry.boss.name }}</span>
-      </li>
-    </ul>
-  </div>
+    <h5 *ngIf="start">Intentos:</h5>
+    <div class="attempts-container">
+      <ul class="list-group">
+        <li
+          *ngFor="let entry of chosenBosses.slice().reverse()"
+          class="list-group-item d-flex align-items-center"
+          [ngClass]="entry.correct ? 'bg-success text-white' : 'bg-danger text-white'"
+        >
+          <div class="boss-image-container">
+            <img
+              [src]="entry.boss.image"
+              [alt]="entry.boss.name"
+              class="boss-image"
+            />
+          </div>
+          <span>{{ entry.boss.name }}</span>
+        </li>
+      </ul>
+    </div> 
   
   <div *ngIf="solved" class="alert alert-success">¡Correcto! Has adivinado la música del boss 🎉</div>
   <div *ngIf="solved" class="mt-3 d-flex justify-content-center">

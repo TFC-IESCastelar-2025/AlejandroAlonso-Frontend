@@ -40,6 +40,12 @@ input.form-control::placeholder {
   color: #a59b7d;
 }
 
+.attempts-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 1rem;
+}
+
 .table {
   background-color: #1a1a1a;
   color: #d4c59d;
@@ -117,7 +123,7 @@ input.form-control::placeholder {
   object-fit: cover;
 }
 
-@media (max-width: 576px){
+@media (max-width: 661px){
     h2 {
         text-align: left;
         font-size: large;

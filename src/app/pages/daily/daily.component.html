@@ -67,7 +67,7 @@
     <div *ngIf="solved" class="alert alert-success">¡Correcto! Has adivinado el boss del día 🎉<br>Próximo boss en: <strong>{{ resetCountdown }}</strong></div>
   </div>
   <app-custom-modal
-  *ngIf="showModal"
+  *ngIf="showModal && !isLoggedIn"
   [title]="'¡Has acertado!'"
   [message]="'Si quieres guardar tu racha y aparecer en los rankings, por favor inicia sesión.'"
   [buttonText]="'Ir a Iniciar Sesion'"

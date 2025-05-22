@@ -19,6 +19,7 @@ export class MusicGuessInfiniteComponent implements OnInit {
   attempts: Boss[] = [];
   chosenBosses: { boss: Boss; correct: boolean }[] = [];
   resetCountdown: string = '';
+  start: boolean = false;
   private countdownInterval: any;
 
   constructor(private bossService: BossService) {}
@@ -41,6 +42,7 @@ export class MusicGuessInfiniteComponent implements OnInit {
   
 
   onBossSelected(boss: Boss): void {
+    this.start = true;
     this.attempts.push(boss);
   
     if (this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
