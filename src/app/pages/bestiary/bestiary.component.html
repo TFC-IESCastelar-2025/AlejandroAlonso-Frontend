@@ -1,11 +1,31 @@
 <div class="container mt-5">
   <h2>Bestiario</h2>
   <div class="row">
+
+    <!-- Detalle del boss visible en escritorio -->
+    <div class="col-12 mb-4 selected-boss-container" *ngIf="selectedBoss">
+      <div class="card flex-row selected-boss-card p-3">
+        <img [src]="selectedBoss.image" class="selected-boss-img me-3" [alt]="selectedBoss.name" />
+        <div class="card-body">
+          <h4>{{ selectedBoss.name }}</h4>
+          <p><strong>Juego:</strong> {{ selectedBoss.game }}</p>
+          <p><strong>Área:</strong> {{ selectedBoss.area }}</p>
+          <p><strong>Dificultad:</strong> {{ selectedBoss.difficulty }}</p>
+          <p><strong>Vida:</strong> {{ selectedBoss.health }}</p>
+          <p><strong>Almas:</strong> {{ selectedBoss.souls }}</p>
+          <p><strong>Altura:</strong> {{ selectedBoss.height }}</p>
+          <p><strong>Figuras:</strong> {{ selectedBoss.figures.join(', ') }}</p>
+
+          <app-audio-player *ngIf="selectedBoss" [src]="selectedBoss.music"></app-audio-player>
+        </div>
+      </div>
+    </div>
+
     <!-- Lista de bosses -->
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="row">
-        <div class="col-md-4 mb-4" *ngFor="let boss of allBosses">
-          <div class="card text-center boss-card" (click)="onSelectBoss(boss)" [class.disabled]="!hasBoss(boss.id)">
+        <div class="col-md-3 mb-4" *ngFor="let boss of paginatedBosses">
+          <div class="card text-center boss-card" (click)="onSelectBoss(boss); openModalOnMobile()" [class.disabled]="!hasBoss(boss.id)">
             <img
               [src]="hasBoss(boss.id) ? boss.image : 'assets/unknown.webp'"
               class="card-img-top"
@@ -21,23 +41,51 @@
       </div>
     </div>
 
-    <!-- Detalle del boss -->
-    <div class="col-md-4" *ngIf="selectedBoss">
-      <div class="card">
-        <img [src]="selectedBoss.image" class="card-img-top" [alt]="selectedBoss.name" />
-        <div class="card-body">
-          <h4>{{ selectedBoss.name }}</h4>
-          <p><strong>Juego:</strong> {{ selectedBoss.game }}</p>
-          <p><strong>Área:</strong> {{ selectedBoss.area }}</p>
-          <p><strong>Dificultad:</strong> {{ selectedBoss.difficulty }}</p>
-          <p><strong>Vida:</strong> {{ selectedBoss.health }}</p>
-          <p><strong>Almas:</strong> {{ selectedBoss.souls }}</p>
-          <p><strong>Altura:</strong> {{ selectedBoss.height }}</p>
-          <p><strong>Figuras:</strong> {{ selectedBoss.figures.join(', ') }}</p>
-
-          <app-audio-player *ngIf="selectedBoss" [src]="selectedBoss.music"></app-audio-player>
-        </div>
-      </div>
+    <!-- Paginador -->
+    <div class="col-12">
+      <app-paginator
+        [currentPage]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="allBosses.length"
+        (pageChange)="onPageChange($event)">
+      </app-paginator>
     </div>
   </div>
+
+  <!-- Aquí va el modal para móvil -->
+  <div
+  class="modal fade"
+  id="bossDetailModal"
+  tabindex="-1"
+  aria-labelledby="bossDetailModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="bossDetailModalLabel">{{ selectedBoss?.name }}</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="selectedBoss?.image" class="img-fluid rounded mb-3" [alt]="selectedBoss?.name" />
+        <p><strong>Juego:</strong> {{ selectedBoss?.game }}</p>
+        <p><strong>Área:</strong> {{ selectedBoss?.area }}</p>
+        <p><strong>Dificultad:</strong> {{ selectedBoss?.difficulty }}</p>
+        <p><strong>Vida:</strong> {{ selectedBoss?.health }}</p>
+        <p><strong>Almas:</strong> {{ selectedBoss?.souls }}</p>
+        <p><strong>Altura:</strong> {{ selectedBoss?.height }}</p>
+        <p><strong>Figuras:</strong> {{ selectedBoss?.figures?.join(', ') }}</p>
+
+      </div>
+      <app-audio-player *ngIf="selectedBoss" [src]="selectedBoss.music"></app-audio-player>
+    </div>
+  </div>
+</div>
+
+
 </div>

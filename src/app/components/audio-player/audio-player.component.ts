@@ -11,7 +11,7 @@ export class AudioPlayerComponent implements AfterViewInit {
   isPlaying = false;
   duration = 0;
   currentTime = 0;
-
+  hideTimeout: any;
   showVolume = false;
   volume = 0.1; 
 
@@ -49,6 +49,17 @@ export class AudioPlayerComponent implements AfterViewInit {
 
   onTimeUpdate() {
     this.currentTime = this.audioRef.nativeElement.currentTime * 1000;
+  }
+
+  onMouseEnterVolume() {
+    clearTimeout(this.hideTimeout);
+    this.showVolume = true;
+  }
+
+  onMouseLeaveVolume() {
+    this.hideTimeout = setTimeout(() => {
+      this.showVolume = false;
+    }, 200);
   }
 
   seek(event: MouseEvent) {

@@ -13,7 +13,7 @@
   </span>
 
   <audio #myaudio [src]="src" (loadedmetadata)="onMetadata()" (timeupdate)="onTimeUpdate()" hidden></audio>
-  <div class="volume-container ms-3" (mouseenter)="showVolume = true" (mouseleave)="showVolume = false">
+  <div class="volume-container ms-3" (mouseenter)="onMouseEnterVolume()" (mouseleave)="onMouseLeaveVolume()">
   <i class="fa-solid fa-volume-high volume-icon"></i>
   <input
     *ngIf="showVolume"
