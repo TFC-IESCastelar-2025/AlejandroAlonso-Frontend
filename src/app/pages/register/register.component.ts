@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -75,8 +76,11 @@ export class RegisterComponent {
     this.showModal = false;
   
     if (this.modalConfig.title === 'Registro exitoso') {
-      this.router.navigate(['/login']);
+      this.navigateToLogin();
     }
   }
-  
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

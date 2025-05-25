@@ -1,8 +1,7 @@
-/* Estilo general */
 body {
   background-color: #121212;
   color: #f8f4e3;
-  font-family: 'Cinzel', serif; /* Fuente de estilo medieval */
+  font-family: 'Cinzel', serif; 
 }
 
 h2 {
@@ -13,7 +12,6 @@ h2 {
   text-align: center;
 }
 
-/* Tarjetas de bosses */
 .boss-card {
   background-color: #1e1e1e;
   border: 2px solid #3d2e1e;
@@ -45,14 +43,12 @@ h2 {
   box-shadow: 0 0 20px rgba(214, 182, 121, 0.4);
 }
 
-/* Boss no desbloqueado */
 .boss-card.disabled {
   opacity: 0.3;
   pointer-events: none;
   filter: grayscale(70%);
 }
 
-/* Detalles del boss seleccionado */
 .card {
   background-color: #1b1b1b;
   border: 2px solid #444;
@@ -71,7 +67,6 @@ h2 {
   margin-bottom: 0.5rem;
 }
 
-/* Contenedor general */
 .container {
   background-color: #1a1a1a;
   padding: 2rem;
@@ -141,12 +136,10 @@ h2 {
     margin-bottom: 1.5rem;
   }
   
-  /* Contenedor con menos padding */
   .container {
     padding: 1rem;
   }
 
-  /* Selección boss: apilar vertical y ajustar tamaño imagen */
   .selected-boss-card {
     flex-direction: column;
     align-items: center;
@@ -163,21 +156,18 @@ h2 {
   .selected-boss-container {
     display: none;
   }
-  
-  /* Texto detalles boss más pequeño para que encaje */
+
   .selected-boss-card .card-body p,
   .selected-boss-card .card-body h4 {
     font-size: 0.9rem;
   }
 
-  /* Lista de bosses: 2 columnas en móviles pequeños */
   .row > .col-md-3 {
     flex: 0 0 50%;
     max-width: 50%;
     padding: 0.5rem;
   }
 
-  /* Imagen de boss en tarjetas más alta para mejor toque */
   .boss-card img {
     height: 150px;
   }
@@ -188,7 +178,7 @@ h2 {
 }
 
 @media (max-width: 400px) {
-  /* En móviles muy pequeños mostrar 1 columna */
+  
   .row > .col-md-3 {
     flex: 0 0 100%;
     max-width: 100%;

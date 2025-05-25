@@ -22,6 +22,8 @@ import { RankingComponent } from './pages/ranking/ranking.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { StartMenuComponent } from './pages/start-menu/start-menu.component';
 import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.componen
     VerifyEmailComponent,
     RankingComponent,
     StartMenuComponent,
-    MenuBarComponent
+    MenuBarComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

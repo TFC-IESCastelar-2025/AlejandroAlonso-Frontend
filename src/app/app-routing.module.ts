@@ -11,6 +11,8 @@ import { BestiaryComponent } from './pages/bestiary/bestiary.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { RankingComponent } from './pages/ranking/ranking.component';
 import { StartMenuComponent } from './pages/start-menu/start-menu.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 // import { NotFoundComponent } from './pages/not-found/not-found.component'; 
 
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'verify', component: VerifyEmailComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'music-guess', component: MusicGuessComponent },
     { path: 'music-guess-infinite', component: MusicGuessInfiniteComponent },
     { path: 'ranking', component: RankingComponent },

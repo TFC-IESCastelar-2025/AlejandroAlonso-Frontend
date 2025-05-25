@@ -85,4 +85,17 @@ export class AuthService {
   putProfile(data: Partial<UserProfile>): Observable<UserProfile> {
     return this.http.put<UserProfile>(PROFILE_URL, data)
   }
+
+  sendResetEmail(email: string) {
+    return this.http.post(`${AUTH_API}forgot-password`, null, {
+      params: { email }
+    });
+  }
+
+  resetPassword(token: string, newPassword: string) {
+    return this.http.post(`${AUTH_API}reset-password`, null, {
+      params: { token, newPassword }
+    });
+  }
+
 }
