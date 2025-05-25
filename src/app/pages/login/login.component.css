@@ -95,3 +95,22 @@ input:focus {
   color: #1a1a1a;
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
 }
+
+.forgot-password-link {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  color: #d4af37; 
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  text-shadow: 0 0 4px rgba(212, 175, 55, 0.3);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.forgot-password-link:hover {
+  color: #f1c40f; 
+  text-shadow: 0 0 6px rgba(241, 196, 15, 0.6);
+}

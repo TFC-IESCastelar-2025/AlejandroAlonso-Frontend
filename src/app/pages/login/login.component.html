@@ -29,8 +29,6 @@
     <p class="error-message" *ngIf="!emptyFieldsError && errorMessage">
       {{ errorMessage }}
     </p>
-    <button type="button" class="forgot-password-button" (click)="navigateToForgotPassword()">
-      ¿Olvidaste tu contraseña?
-    </button>
+    <a class="forgot-password-link" (click)="navigateToForgotPassword()">¿Olvidaste tu contraseña?</a>
   </form>
 </div>
