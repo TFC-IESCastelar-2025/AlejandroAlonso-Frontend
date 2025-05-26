@@ -1,0 +1,65 @@
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #111;
+  color: #e0d6b9;
+  padding: 2rem;
+  border-radius: 12px;
+  font-family: 'Cinzel', serif;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+  border: 1px solid #3a2d12;
+}
+
+.profile-title {
+  color: #f5e6c8;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #555;
+  padding-bottom: 0.5rem;
+}
+
+.input-ds {
+  background-color: #1c1c1c;
+  color: #f5f5f5;
+  border: 1px solid #4b3621;
+  transition: border-color 0.3s;
+  font-family: 'Cardo', serif;
+}
+
+.input-ds:focus {
+  border-color: #a88f65;
+  box-shadow: 0 0 10px #a88f65;
+}
+
+.btn-ds {
+  background-color: #3a2d12;
+  color: #e0d6b9;
+  border: 1px solid #a88f65;
+  transition: all 0.3s;
+}
+
+.btn-ds:hover {
+  background-color: #5e4722;
+  color: #fff;
+}
+
+.btn-ds-save {
+  background-color: #2d4f2d;
+  border-color: #88aa66;
+  color: #e0d6b9;
+}
+
+.btn-ds-save:hover {
+  background-color: #3d6f3d;
+}
+
+.btn-ds-cancel {
+  background-color: #4a1f1f;
+  border-color: #cc6666;
+  color: #e0d6b9;
+  margin-left: 3%;
+}
+
+.btn-ds-cancel:hover {
+  background-color: #6f2f2f;
+}

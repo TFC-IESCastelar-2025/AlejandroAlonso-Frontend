@@ -1,22 +1,21 @@
-<div class="container mt-5" *ngIf="user">
-  <h2>Mi perfil</h2>
+<div class="profile-container mt-5" *ngIf="user">
+  <h2 class="profile-title">Mi perfil</h2>
 
   <div *ngIf="!editMode">
     <p><strong>Usuario:</strong> {{ user.username }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
-    <button class="btn btn-primary" (click)="editMode = true">Editar perfil</button>
+    <button class="btn btn-ds" (click)="editMode = true">Editar perfil</button>
   </div>
 
   <div *ngIf="editMode">
     <form [formGroup]="profileForm" (ngSubmit)="saveChanges()">
-
       <div class="mb-3">
         <label for="username" class="form-label">Usuario</label>
         <input
           type="text"
           id="username"
           formControlName="username"
-          class="form-control"
+          class="form-control input-ds"
           [class.is-invalid]="f['username'].touched && f['username'].invalid"
         />
         <div *ngIf="f['username'].touched && f['username'].invalid" class="invalid-feedback">
@@ -30,7 +29,7 @@
           type="email"
           id="email"
           formControlName="email"
-          class="form-control"
+          class="form-control input-ds"
           [class.is-invalid]="f['email'].touched && f['email'].invalid"
         />
         <div *ngIf="f['email'].touched && f['email'].errors" class="invalid-feedback">
@@ -45,7 +44,7 @@
           type="password"
           id="password"
           formControlName="password"
-          class="form-control"
+          class="form-control input-ds"
           [class.is-invalid]="
             (f['password'].touched && f['password'].invalid) ||
             (profileForm.errors?.['mismatch'] && (f['password'].touched || f['confirmPassword'].touched))
@@ -60,7 +59,7 @@
           type="password"
           id="confirmPassword"
           formControlName="confirmPassword"
-          class="form-control"
+          class="form-control input-ds"
           [class.is-invalid]="
             (f['confirmPassword'].touched && f['confirmPassword'].invalid) ||
             (profileForm.errors?.['mismatch'] && (f['password'].touched || f['confirmPassword'].touched))
@@ -71,9 +70,10 @@
           Las contraseñas no coinciden.
         </div>
       </div>
-
-      <button type="submit" class="btn btn-success" [disabled]="profileForm.invalid">Guardar cambios</button>
-      <button type="button" class="btn btn-secondary ms-2" (click)="editMode = false">Cancelar</button>
+      <div class="container-buttons">
+        <button type="submit" class="btn btn-ds-save" [disabled]="profileForm.invalid">Guardar cambios</button>
+        <button type="button" class="btn btn-ds-cancel ms-2" (click)="editMode = false">Cancelar</button>
+      </div>
     </form>
   </div>
 </div>

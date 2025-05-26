@@ -45,6 +45,7 @@ input {
   color: #f8f4e3;
   font-size: 1rem;
   border-radius: 6px;
+  font-family: 'Cardo', serif;
 }
 
 input:focus {
