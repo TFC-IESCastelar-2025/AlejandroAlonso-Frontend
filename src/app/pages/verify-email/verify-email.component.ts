@@ -20,7 +20,7 @@ export class VerifyEmailComponent implements OnInit {
     const token = this.route.snapshot.queryParamMap.get('token');
 
     if (token) {
-      this.http.get<any>(`http://localhost:4242/auth/verify?token=${token}`).subscribe({
+      this.http.get<any>(`https://soulsdleback.alecstfc.duckdns.org/auth/verify?token=${token}`).subscribe({
         next: res => {
           this.message = res.message || 'Cuenta verificada correctamente.';
           this.isSuccess = true;

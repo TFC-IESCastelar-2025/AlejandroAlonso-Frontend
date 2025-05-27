@@ -1,8 +1,8 @@
-# Usamos una imagen base de Apache
-FROM httpd:2.4
+# Usamos la imagen oficial de NGINX
+FROM nginx:alpine
 
-# Copiamos nuestro código al directorio donde Apache lo servirá
-COPY ./dist/fctretos /usr/local/apache2/htdocs/
+COPY ./dist/fctretos /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Exponemos el puerto 80
-EXPOSE 8181
+EXPOSE 80

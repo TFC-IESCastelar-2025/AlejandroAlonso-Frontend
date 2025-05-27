@@ -11,6 +11,8 @@ export class MenuBarComponent implements OnInit {
   isLoggedIn: boolean = false; 
   isMenuVisible = true;
   isToggleButtonVisible = false;
+  hoveredLabel: string | null = null;
+  showLogoutModal: boolean = false; 
 
   constructor(private authService: AuthService, private router: Router) {
     this.checkWindowHeight();
@@ -34,8 +36,6 @@ export class MenuBarComponent implements OnInit {
   checkWindowHeight() {
     const height = document.documentElement.clientHeight;
     const width = document.documentElement.clientWidth;
-    console.log('Altura viewport:', height);
-    console.log('Anchura viewport:', width);
     if (height < 710 || width < 670 ) {
       this.isMenuVisible = false;
       this.isToggleButtonVisible = true;
@@ -49,9 +49,20 @@ export class MenuBarComponent implements OnInit {
     this.isMenuVisible = !this.isMenuVisible;
   }
 
-   logout(): void {
-        this.authService.logout();
-        this.isLoggedIn = false;
-        this.router.navigate(['/login']);
+  confirmLogout(): void {
+    this.showLogoutModal = true;
+  }
+
+  handleLogoutModalClose(shouldLogout: boolean): void {
+    this.showLogoutModal = false;
+    if (shouldLogout) {
+      this.authService.logout();
+      this.isLoggedIn = false;
+      this.router.navigate(['/login']);
     }
+  }
+
+  setHoveredLabel(label: string | null) {
+    this.hoveredLabel = label;
+  }
 }

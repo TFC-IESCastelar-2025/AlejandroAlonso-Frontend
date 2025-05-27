@@ -47,7 +47,7 @@ export class RegisterComponent {
       role: ['user']
     };
 
-    this.http.post<any>('http://localhost:4242/auth/register', data).subscribe({
+    this.http.post<any>('https://soulsdleback.alecstfc.duckdns.org/auth/register', data).subscribe({
       next: (response) => {
         this.modalConfig = {
           title: 'Registro exitoso',

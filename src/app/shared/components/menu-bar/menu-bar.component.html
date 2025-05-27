@@ -13,23 +13,61 @@
   [style.left]="isToggleButtonVisible ? '95px' : '100px'"
   [style.zIndex]="1051"
 >
-    <button class="menu-btn" title="Inicio" [routerLink]="['/']">
-        <img src="/assets/start2.png" alt="">
+
+  <button class="menu-btn"
+          title="Inicio"
+          [routerLink]="['/']"
+          (mouseenter)="setHoveredLabel('Inicio')"
+          (mouseleave)="setHoveredLabel(null)">
+    <img src="/assets/start2.png" alt="">
+  </button>
+
+  <button class="menu-btn"
+          title="Ranking"
+          [routerLink]="['/ranking']"
+          (mouseenter)="setHoveredLabel('Ranking')"
+          (mouseleave)="setHoveredLabel(null)">
+    <img src="/assets/ranking.png" alt="">
+  </button>
+
+  <ng-container *ngIf="isLoggedIn">
+    <button class="menu-btn"
+            title="Bestiario"
+            [routerLink]="['/bestiary']"
+            (mouseenter)="setHoveredLabel('Bestiario')"
+            (mouseleave)="setHoveredLabel(null)">
+      <img src="/assets/bestiary.png" alt="">
     </button>
-    <button class="menu-btn" title="Ranking" [routerLink]="['/ranking']">
-        <img src="/assets/ranking.png" alt="">
+  </ng-container>
+
+  <button class="menu-btn"
+          title="Perfil"
+          [routerLink]="['/profile']"
+          (mouseenter)="setHoveredLabel('Perfil')"
+          (mouseleave)="setHoveredLabel(null)">
+    <img src="/assets/profile.png" alt="">
+  </button>
+
+  <ng-container *ngIf="isLoggedIn">
+    <button class="menu-btn"
+            title="Cerrar sesión"
+            (click)="confirmLogout(); $event.preventDefault()"
+            (mouseenter)="setHoveredLabel('Cerrar sesión')"
+            (mouseleave)="setHoveredLabel(null)">
+    <img src="/assets/house.png" alt="">
     </button>
-    <ng-container *ngIf="isLoggedIn">
-        <button class="menu-btn" title="Bestiario" [routerLink]="['/bestiary']">
-            <img src="/assets/bestiary.png" alt="">
-        </button>
-    </ng-container>
-    <button class="menu-btn" title="Perfil" [routerLink]="['/profile']">
-        <img src="/assets/profile.png" alt="">
-    </button>
-    <ng-container *ngIf="isLoggedIn">
-        <button class="menu-btn" title="Cerrar sesión" (click)="logout(); $event.preventDefault()">
-            <img src="/assets/house.png" alt="">
-        </button>
-    </ng-container>
+  </ng-container>
+
+  <div class="menu-label-container" *ngIf="hoveredLabel">
+    <span>{{ hoveredLabel }}</span>
+  </div>
+
 </div>
+<app-custom-modal
+  *ngIf="showLogoutModal"
+  [title]="'Confirmar cierre de sesión'"
+  [message]="'¿Estás seguro de que deseas cerrar sesión?'"
+  [buttonText]="'Cerrar sesión'"
+  (close)="handleLogoutModalClose($event)">
+</app-custom-modal>
+
