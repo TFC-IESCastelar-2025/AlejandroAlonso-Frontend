@@ -14,6 +14,21 @@ export class AudioPlayerComponent implements AfterViewInit {
   hideTimeout: any;
   showVolume = false;
   volume = 0.1; 
+  isLoadingAudio = true;
+  showLoadingMessage = false;
+
+  onLoadingMouseEnter() {
+    this.showLoadingMessage = true;
+  }
+
+  onLoadingMouseLeave() {
+    this.showLoadingMessage = false;
+  }
+
+  onLoadingClick() {
+    this.showLoadingMessage = true;
+    setTimeout(() => this.showLoadingMessage = false, 2000);
+  }
 
   changeVolume(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -32,7 +47,6 @@ export class AudioPlayerComponent implements AfterViewInit {
     }, 100);
   }
 
-
   togglePlay() {
     const audio = this.audioRef.nativeElement;
     if (this.isPlaying) {
@@ -45,6 +59,15 @@ export class AudioPlayerComponent implements AfterViewInit {
 
   onMetadata() {
     this.duration = this.audioRef.nativeElement.duration * 1000;
+    this.isLoadingAudio = false
+  }
+
+  onCanPlay() {
+    this.isLoadingAudio = false;
+  }
+
+  onLoadStart() {
+    this.isLoadingAudio = true;
   }
 
   onTimeUpdate() {
