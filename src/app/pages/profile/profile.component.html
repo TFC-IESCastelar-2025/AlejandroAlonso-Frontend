@@ -17,6 +17,7 @@
           formControlName="username"
           class="form-control input-ds"
           [class.is-invalid]="f['username'].touched && f['username'].invalid"
+          placeholder="Deja vacío para no cambiar"
         />
         <div *ngIf="f['username'].touched && f['username'].invalid" class="invalid-feedback">
           El usuario es obligatorio.
@@ -31,6 +32,7 @@
           formControlName="email"
           class="form-control input-ds"
           [class.is-invalid]="f['email'].touched && f['email'].invalid"
+          placeholder="Deja vacío para no cambiar"
         />
         <div *ngIf="f['email'].touched && f['email'].errors" class="invalid-feedback">
           <div *ngIf="f['email'].errors['required']">El correo es obligatorio.</div>
@@ -71,9 +73,26 @@
         </div>
       </div>
       <div class="container-buttons">
-        <button type="submit" class="btn btn-ds-save" [disabled]="profileForm.invalid">Guardar cambios</button>
+        <button type="submit" class="btn btn-ds-save" [disabled]="profileForm.invalid || isLoading">
+          <ng-container *ngIf="!isLoading; else loadingSpinner">
+            Guardar cambios
+          </ng-container>
+          <ng-template #loadingSpinner>
+            <div class="spinner-border spinner-border-sm text-light" role="status">
+              <span class="visually-hidden"></span>
+            </div>
+          </ng-template>
+        </button>
         <button type="button" class="btn btn-ds-cancel ms-2" (click)="editMode = false">Cancelar</button>
       </div>
     </form>
+    <app-custom-modal
+      *ngIf="showModal"
+      [title]="modalConfig.title"
+      [message]="modalConfig.message"
+      [buttonText]="modalConfig.buttonText"
+      (close)="onModalClose()"
+    ></app-custom-modal>
+
   </div>
 </div>

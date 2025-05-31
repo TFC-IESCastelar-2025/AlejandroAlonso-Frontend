@@ -11,6 +11,7 @@ export class BossSearchComponent {
   bossList: Boss[] = []; 
   guess: string = '';
   filteredBosses: Boss[] = [];
+  listPosition = { top: 0, left: 0, width: 0 };
 
   @Input() attempts: Boss[] = []; 
   @Output() selectedBoss: EventEmitter<Boss> = new EventEmitter<Boss>();
@@ -29,9 +30,22 @@ export class BossSearchComponent {
     this.filteredBosses = this.bossList
       .filter(boss =>
         boss.name.toLowerCase().startsWith(query) &&
-        !this.attempts.some(attempt => attempt.id === boss.id) 
+        !this.attempts.some(attempt => attempt.id === boss.id)
       );
+
+    setTimeout(() => {
+      const inputEl = document.querySelector('#bossSearchInput') as HTMLElement;
+      if (inputEl) {
+        const rect = inputEl.getBoundingClientRect();
+        this.listPosition = {
+          top: rect.bottom + window.scrollY,
+          left: rect.left + window.scrollX,
+          width: rect.width
+        };
+      }
+    });
   }
+
 
   selectSuggestion(boss: Boss): void {
     this.guess = boss.name;
