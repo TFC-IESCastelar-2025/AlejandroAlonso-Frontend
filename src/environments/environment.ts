@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
 
-  baseUrl: 'http://192.168.0.18:4242/boss', 
+  baseUrl: 'http://localhost:4242/boss', 
   
-  userUrl: 'http://192.168.0.18:4242/user', 
+  userUrl: 'http://localhost:4242/user', 
 
-  authUrl: 'http://192.168.0.18:4242/auth/',
+  authUrl: 'http://localhost:4242/auth/',
 
-  profileUrl: 'http://192.168.0.18:4242/profile',
+  profileUrl: 'http://localhost:4242/profile',
 
 
   // Activa el modo depuración. Desactiva la autenticación.

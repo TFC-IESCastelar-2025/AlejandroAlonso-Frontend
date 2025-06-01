@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       username: [''],
       email: ['', [Validators.email]],
-      password: [''],
+      password: ['', Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/)],
       confirmPassword: [''],
     }, { validators: this.passwordMatchValidator });
   }

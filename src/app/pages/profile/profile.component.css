@@ -63,3 +63,9 @@
 .btn-ds-cancel:hover {
   background-color: #6f2f2f;
 }
+
+.error {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}

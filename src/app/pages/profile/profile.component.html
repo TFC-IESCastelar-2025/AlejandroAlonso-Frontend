@@ -19,8 +19,8 @@
           [class.is-invalid]="f['username'].touched && f['username'].invalid"
           placeholder="Deja vacío para no cambiar"
         />
-        <div *ngIf="f['username'].touched && f['username'].invalid" class="invalid-feedback">
-          El usuario es obligatorio.
+        <div *ngIf="f['username'].touched && f['username'].invalid" class="error">
+          El nombre de usuario es no es valido.
         </div>
       </div>
 
@@ -34,8 +34,7 @@
           [class.is-invalid]="f['email'].touched && f['email'].invalid"
           placeholder="Deja vacío para no cambiar"
         />
-        <div *ngIf="f['email'].touched && f['email'].errors" class="invalid-feedback">
-          <div *ngIf="f['email'].errors['required']">El correo es obligatorio.</div>
+        <div *ngIf="f['email'].touched && f['email'].errors" class="error">
           <div *ngIf="f['email'].errors['email']">Introduce un correo válido.</div>
         </div>
       </div>
@@ -53,6 +52,11 @@
           "
           placeholder="Deja vacío para no cambiar"
         />
+        <div *ngIf="f['password'].touched && f['password'].errors" class="error">
+          <div *ngIf="f['password'].errors?.['pattern']">
+            Debe tener al menos 6 caracteres, una mayúscula, un número y un carácter especial.
+          </div>
+        </div>
       </div>
 
       <div class="mb-3">
@@ -68,10 +72,11 @@
           "
           placeholder="Deja vacío para no cambiar"
         />
-        <div *ngIf="profileForm.errors?.['mismatch'] && (f['confirmPassword'].touched || f['password'].touched)" class="invalid-feedback">
+        <div *ngIf="profileForm.errors?.['mismatch'] && (f['confirmPassword'].touched || f['password'].touched)" class="error">
           Las contraseñas no coinciden.
         </div>
       </div>
+
       <div class="container-buttons">
         <button type="submit" class="btn btn-ds-save" [disabled]="profileForm.invalid || isLoading">
           <ng-container *ngIf="!isLoading; else loadingSpinner">
