@@ -3,12 +3,12 @@ export const environment = {
 
   // pruebaUrl: 'https://backendprueba.alecsdaw.duckdns.org', 
 
-  baseUrl: 'https://soulsdleback.alecstfc.duckdns.org/boss', 
+  baseUrl: 'https://soulsdleback.onrender.com/boss', 
   
-  userUrl: 'https://soulsdleback.alecstfc.duckdns.org/user', 
+  userUrl: 'https://soulsdleback.onrender.com/user', 
 
-  authUrl: 'https://soulsdleback.alecstfc.duckdns.org/auth/',
+  authUrl: 'https://soulsdleback.onrender.com/auth/',
 
-  profileUrl: 'https://soulsdleback.alecstfc.duckdns.org/profile'
+  profileUrl: 'https://soulsdleback.onrender.com/profile'
 
 };
