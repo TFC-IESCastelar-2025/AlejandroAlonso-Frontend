@@ -20,6 +20,8 @@ export class MusicGuessInfiniteComponent implements OnInit {
   chosenBosses: { boss: Boss; correct: boolean }[] = [];
   resetCountdown: string = '';
   start: boolean = false;
+  lives: number = 15;
+  isGameOver: boolean = false;
   private countdownInterval: any;
 
   constructor(private bossService: BossService) {}
@@ -47,6 +49,11 @@ export class MusicGuessInfiniteComponent implements OnInit {
   
     if (this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
       this.solved = true;
+    } else {
+      this.lives--;
+      if (this.lives <= 0) {
+        this.isGameOver = true;
+      }
     }
   
     const isCorrect = this.boss && this.boss.name.toLowerCase() === boss.name.toLowerCase();
@@ -57,6 +64,9 @@ export class MusicGuessInfiniteComponent implements OnInit {
     this.solved = false;
     this.attempts = [];
     this.chosenBosses = [];
+    this.lives = 15;
+    this.isGameOver = false;
+    this.start = false;
     this.getRandomMusic();
   }
 

@@ -15,6 +15,8 @@ export class InfiniteComponent implements OnInit {
   solved: boolean = false; 
   bossList: Boss[] = []; 
   filteredBosses: Boss[] = [];
+  lives: number = 15;
+  isGameOver: boolean = false;
 
   constructor(private bossService: BossService) {}
 
@@ -41,10 +43,16 @@ export class InfiniteComponent implements OnInit {
   onBossSelected(boss: Boss): void {
     this.attempts.push(boss);
 
-    if(this.boss.name.toLowerCase() === boss.name.toLowerCase()){
+    if (this.boss.name.toLowerCase() === boss.name.toLowerCase()) {
       this.solved = true;
+    } else {
+      this.lives--;
+      if (this.lives <= 0) {
+        this.isGameOver = true;
+      }
     }
   }
+
 
   // onGuess(): void {
   //   const match = this.bossList.find(
@@ -108,9 +116,11 @@ export class InfiniteComponent implements OnInit {
     this.guess = '';
     this.solved = false;
     this.filteredBosses = [];
-  
-    // Obtener un nuevo boss aleatorio
+    this.lives = 15;
+    this.isGameOver = false;
+
     this.bossService.getRandomBoss().subscribe(boss => this.boss = boss);
-  }  
+  }
+
   
 }

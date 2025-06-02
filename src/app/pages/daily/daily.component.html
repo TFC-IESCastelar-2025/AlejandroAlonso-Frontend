@@ -1,3 +1,6 @@
+<app-victory-death-overlay 
+  [state]="solved ? 'victory' : null">
+</app-victory-death-overlay>
 <div class="container mt-4">
     <div *ngIf="streak >= 1" class="mb-3 streak">
     🔥 Racha actual: <strong>{{ streak }}</strong>
@@ -5,7 +8,7 @@
     <h2>Boss diario</h2>
     <app-boss-search *ngIf="!solved" [attempts]="attempts" (selectedBoss)="onBossSelected($event)"></app-boss-search>
   
-    <div class="table-responsive" *ngIf="attempts.length > 0">
+    <div class="table-responsive" *ngIf="attempts.length > 0" style="max-height: 400px; overflow-y: auto; margin-top:1%;">
       <table class="table table-bordered">
         <thead>
           <tr>

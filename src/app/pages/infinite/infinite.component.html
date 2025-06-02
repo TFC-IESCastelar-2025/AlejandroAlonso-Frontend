@@ -1,8 +1,18 @@
-<div class="container mt-4">
-    <h2>Modo infinito</h2>
-    <app-boss-search *ngIf="!solved" [attempts]="attempts" (selectedBoss)="onBossSelected($event)"></app-boss-search>
+<app-victory-death-overlay 
+  [state]="solved ? 'victory' : isGameOver ? 'death' : null">
+</app-victory-death-overlay>
+<div class="container mt-4"> 
+  <h2>Modo infinito</h2>
+  <div class="vidas-container">
+    <ng-container *ngFor="let i of [].constructor(15); let idx = index">
+      <i
+        [ngClass]="idx < +lives ? 'fa-solid fa-heart text-danger' : 'fa-regular fa-heart text-secondary'">
+      </i>
+    </ng-container>
+  </div>
+    <app-boss-search *ngIf="!solved && !isGameOver" [attempts]="attempts" (selectedBoss)="onBossSelected($event)"></app-boss-search>
   
-    <div class="table-responsive" *ngIf="attempts.length > 0">
+    <div class="table-responsive" *ngIf="attempts.length > 0" style="max-height: 400px; overflow-y: auto; margin-top:1%;">
       <table class="table table-bordered" *ngIf="attempts.length > 0">
         <thead>
           <tr>
@@ -61,13 +71,16 @@
         </tbody>
       </table>        
     </div>
+    <div style="margin-top:1%;">
       <div *ngIf="solved" class="alert alert-success">
         ¡Correcto! Has adivinado el boss 🎉
       </div>
-      
-      <div *ngIf="solved" class="mt-3 d-flex justify-content-center">
+      <div *ngIf="isGameOver" class="alert alert-danger">
+        Te has quedado sin vidas. 😵‍💫
+      </div>
+      <div *ngIf="solved || isGameOver" class="mt-3 d-flex justify-content-center">
         <button class="btn btn-success" (click)="reiniciar()">Restart</button>
       </div>      
-      
+    </div>  
   </div>
   

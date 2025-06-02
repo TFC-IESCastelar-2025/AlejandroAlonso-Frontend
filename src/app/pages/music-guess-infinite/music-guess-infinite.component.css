@@ -4,10 +4,17 @@ body {
   font-family: 'Garamond', 'Georgia', serif;
 }
 
+.vidas-container {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+
 h2 {
   font-family: 'Cinzel', serif;
   font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: #e0c066;
   text-shadow: 1px 1px 4px #000;
   border-bottom: 2px solid #5a4b2c;

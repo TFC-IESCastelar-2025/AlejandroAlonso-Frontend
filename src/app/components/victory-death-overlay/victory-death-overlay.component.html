@@ -1,0 +1,5 @@
+<div *ngIf="state" class="overlay">
+  <div [ngClass]="state === 'victory' ? 'victory-text' : 'death-text'">
+    {{ state === 'victory' ? 'VICTORIA' : 'HAS MUERTO' }}
+  </div>
+</div>

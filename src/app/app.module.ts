@@ -24,6 +24,7 @@ import { StartMenuComponent } from './pages/start-menu/start-menu.component';
 import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { VictoryDeathOverlayComponent } from './components/victory-death-overlay/victory-death-overlay.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     StartMenuComponent,
     MenuBarComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    VictoryDeathOverlayComponent
   ],
   imports: [
     BrowserModule,

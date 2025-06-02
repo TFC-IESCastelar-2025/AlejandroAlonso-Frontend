@@ -1,4 +1,7 @@
 <!-- src/app/pages/music-guess/music-guess.component.html -->
+<app-victory-death-overlay 
+  [state]="solved ? 'victory' : null">
+</app-victory-death-overlay>
 <div class="container mt-4">
     <h2>Adivina la música del boss</h2>
     <div style="margin-bottom: 2%;">

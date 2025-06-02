@@ -43,8 +43,9 @@ input.form-control::placeholder {
 }
 
 .table td {
-    text-align: center;
-    align-content: center;
+  text-align: center;
+  align-content: center;
+  vertical-align: middle;
 }
 
 .table th {
